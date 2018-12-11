@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">BM Medical</string>
+    <string name="action_login">تسجيل الدخول</string>
+    <string name="password">كلمة المرور</string>
+    <string name="oracle">رقم الاوراكل</string>
+    <string name="informations">معلومات</string>
+    <string name="medical_request">طلب خدمة طبية</string>
+    <string name="approval">الموافقات والروشتات</string>
+    <string name="information_desc">معلومات عن الخدمة الطبية</string>
+    <string name="medical_request_desc">طلب الحصول على الخدمة الطبية</string>
+    <string name="approval_desc">احصل على موافقة او روشتة</string>
+    <string name="glass_grant">منحة النظارة</string>
+    <string name="glasses_grant_desc">معلومات عن منحة النظارة</string>
+    <string name="teeth_implant">تركيبات الاسنان</string>
+    <string name="teeth_implant_desc">معلومات عن تركيبات الاسنان</string>
+    <string name="childbirth_grant">منحة الولادة</string>
+    <string name="childbirth_grant_desc">معلومات عن منحة الولادة</string>
+    <string name="chronic_diseases">حالة المزمن</string>
+    <string name="chronic_diseases_desc">معلومات عن حالة المزمن</string>
+    <string name="absence">الاجازات</string>
+    <string name="absence_desc">معلومات عن الاجازات</string>
+    <string name="contractors">الجهات المتعاقدة</string>
+    <string name="contractors_desc">معلومات عن الجهات المتعاقدة</string>
+    <string name="doc">تعليمات واجراءات</string>
+    <string name="doc_desc">تعليمات واجراءات الخدمة الطبية</string>
+    <string name="prevention_is_better_than_cure">الوقاية خير من العلاج:</string>
+    <string name="prevention_is_better_than_cure_content">يقال بأن الوقاية من الأمراض الوقاية خير من العلاج ولكن للأسف هناك مواسم تنتشر بها بعض الامراض المعدية مثل الانفلونزا والزكام والسعال التي أساسها فيروسي ولا يوجد لها علاج، وللوقاية من هذه الأمراض عليك اتّباع النصائح التالية:
+
+- الحفاظ على النظافة العامة وغسل اليدين بالصابون للتخلص من الجراثيم والاستحمام.
+
+- تجنب ملامسة العينين أو الأذنين أو الأنف واليدين متسختين حتى لا تنتقل الميكروبات إلى داخل الجسم من خلالهم.
+
+- تناول الطعام الصحي وخاصة الفواكه المغسولة والخضراوات المنظفة جيّداً.
+
+- شرب المياه بكميات كافية.
+
+- عدم مشاركة الأغراض الشخصية كالمناشف وشفرات الحلاقة وفرشاة الأسنان لتجنب نقل البكتريا من شخص إلى آخر.
+
+- عدم الذهاب إلى الأماكن المزدحمة في حال وجود أي مرض معدي.
+
+- تغطية الفم عند السعال أو العطس لعدم انتشار الجراثيم.
+
+- تطعيم الأطفال في بداية عمرهم للحد من إصابتهم بالأمراض المعدية.
+
+- متابعة الأخبار باستمرار لاتخاذ الإجراءات التي ينصح بها في حال انتشار مرض معين أو السفر إلى بلد آخر.
+
+بالإضافة الى ذلك يجب :
+
+اخذ الوقت الكافي في النوم، فقلّة النوم تجعل الجسم أكثر عرضة للإصابة بالأمراض.
+
+التوقف عن التدخين للحد من الإصابة بأمراض الرئتين والسرطان بسبب مادة النيكوتين. ا
+
+تناول القهوة يقلل من خطر الإصابة بسرطان الأمعاء ومرض الشلل الرعشي.
+
+يجب المحافظة على الوزن المثالي والابتعاد عن السمنة.
+
+استخدام الزيوت النباتية في الطبخ بدلاً من السمنة والزبدة؛ للحد من الإصابة بجلطات القلب وارتفاع مستوى الكولسترول، وغسل الدجاج واللحوم بشكل جيد واستخدام ألواح تقطيع منفصلة للحوم والخضار.
+
+ممارسة الرياضة يومياً كرياضة المشي أو أي رياضة تجعل الجسم يتعرق وتعمل على زيادة نبضات القلب للحد من الإصابة بأمراض القلب وتقوية العظام للتقليل من الإصابة بالكسور.
+
+</string>
+    <string name="clinic">عيادة</string>
+    <string name="specialist">التخصص:</string>
+    <string name="phone">رقم التليفون:</string>
+    <string name="address">العنوان:</string>
+    <string name="doctor">اسم الدكتور:</string>
+    <string name="sorry_you_have_to_login_before_you_can_see_the_content">عذرا، يجب عليك تسجيل الدخول حتى تتمكن من عرض المحتوى</string>
+</resources>

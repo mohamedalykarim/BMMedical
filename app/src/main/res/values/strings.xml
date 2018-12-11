@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">BM Medical</string>
+    <string name="action_login">Login</string>
+    <string name="password">Password</string>
+    <string name="oracle">Oracle Number</string>
+    <string name="informations">Informations</string>
+    <string name="medical_request">Medical Request</string>
+    <string name="approval">Approvals and prescription</string>
+    <string name="information_desc">Informations about BM Medical Service</string>
+    <string name="medical_request_desc">Make new approval to get medical service</string>
+    <string name="approval_desc">Get Approval or get a prescription</string>
+    <string name="glass_grant">Glasses Grant</string>
+    <string name="glasses_grant_desc">Informations About Glasses Grant</string>
+    <string name="teeth_implant">Teeth Implant</string>
+    <string name="teeth_implant_desc">Informations about Teeth Implant</string>
+    <string name="childbirth_grant">Childbirth Grant</string>
+    <string name="childbirth_grant_desc">Informations about Childbirth Grant</string>
+    <string name="chronic_diseases">Chronic Diseases Status</string>
+    <string name="chronic_diseases_desc">Informations about chronic diseases status</string>
+    <string name="absence">Absence</string>
+    <string name="absence_desc">Informations About absence</string>
+    <string name="contractors">Contractors</string>
+    <string name="contractors_desc">Informations about contractors</string>
+    <string name="doc">Documentation And Procedures</string>
+    <string name="doc_desc">Medical service documentation and procedures</string>
+    <string name="prevention_is_better_than_cure">Prevention is better than cure:</string>
+    <string name="prevention_is_better_than_cure_content">Don\'t be fooled by the health halo of pecans: A single slice of this pie packs around 500 calories and more than 30 grams of sugar—and that\'s before you add whipped cream or with ice cream.Don\'t be fooled by the health halo of pecans: A single slice of this pie packs around 500 calories and more than 30 grams of sugar—and that\'s before you add whipped cream or with ice cream.Don\'t be fooled by the health halo of pecans: A single slice of this pie packs around 500 calories and more than 30 grams of sugar—and that\'s before you add whipped cream or with ice cream.</string>
+    <string name="clinic">Clinic</string>
+    <string name="specialist">Specialist:</string>
+    <string name="phone">Phone:</string>
+    <string name="address">Address:</string>
+    <string name="doctor">Doctor:</string>
+    <string name="hospital">Hospital</string>
+    <string name="sorry_you_have_to_login_before_you_can_see_the_content">Sorry, You have to login before you can see the content</string>
+</resources>

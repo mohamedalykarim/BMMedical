@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "575600610845",
+    "firebase_url": "https://bmmedical-32827.firebaseio.com",
+    "project_id": "bmmedical-32827",
+    "storage_bucket": "bmmedical-32827.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575600610845:android:4c568c955733be90",
+        "android_client_info": {
+          "package_name": "com.banquemisr.www.bmmedical"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575600610845-o8vcmiaaufhqkrskogv1gd3ml1et9kvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4viJ8Y-2gcngchrjcbO6X_ZCSjKjmX2M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

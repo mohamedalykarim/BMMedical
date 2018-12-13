@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.banquemisr.www.bmmedical.data.model.MenuItem;
 import com.banquemisr.www.bmmedical.ui.Approvals.ApprovalsActivity;
 import com.banquemisr.www.bmmedical.ui.Informations.InformationsActivty;
-import com.banquemisr.www.bmmedical.ui.Requests.RequestsActivity;
+import com.banquemisr.www.bmmedical.ui.requests.RequestsActivity;
 import com.banquemisr.www.bmmedical.databinding.RowMenuItemBinding;
 import com.squareup.picasso.Picasso;
 

@@ -1,37 +1,48 @@
-package com.banquemisr.www.bmmedical.ui.Requests;
+package com.banquemisr.www.bmmedical.ui.requests;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.banquemisr.www.bmmedical.Adapters.EntityRecyclerAdapter;
+import com.banquemisr.www.bmmedical.Adapters.EntityAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityRequestsBinding;
-import com.banquemisr.www.bmmedical.ui.MainScreen.MainScreenActivity;
-import com.banquemisr.www.bmmedical.ui.Requests.Model.MedicalEntity;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class RequestsActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST = 1;
     ActivityRequestsBinding binding;
-    ArrayList<MedicalEntity> entities;
+    RequestViewModel requestViewModel;
     LoginViewModel loginViewModel;
 
-    EntityRecyclerAdapter entityRecyclerAdapter;
+    EntityAdapter entityRecyclerAdapter;
     RecyclerView entityRecyclerView;
     LinearLayoutManager entityLayoutManager;
+    NavigationView navigationView;
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +50,45 @@ public class RequestsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_requests);
         binding.setLifecycleOwner(this);
 
-        entities = new ArrayList<>();
-        entityRecyclerAdapter = new EntityRecyclerAdapter(this);
+        drawerLayout = binding.drawer;
+        navigationView = binding.navView;
+
+        Toolbar toolbar = binding.toolbar;
+        toolbar.setTitle("");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.da));
+        setSupportActionBar(toolbar);
+
+
+
+
+
+        entityRecyclerAdapter = new EntityAdapter();
         entityRecyclerView = binding.entityRecyclerView;
         entityLayoutManager = new LinearLayoutManager(this);
 
         entityRecyclerView.setLayoutManager(entityLayoutManager);
         entityRecyclerView.setAdapter(entityRecyclerAdapter);
 
-        entities.add(new MedicalEntity());
-        entities.add(new MedicalEntity());
-        entities.add(new MedicalEntity());
-        entities.add(new MedicalEntity());
-        entities.add(new MedicalEntity());
-        entities.add(new MedicalEntity());
-        entities.add(new MedicalEntity());
 
-        entities.get(0).setType("hospital");
-        entities.get(6).setType("hospital");
 
-        entityRecyclerAdapter.setEntities(entities);
-        entityRecyclerAdapter.notifyDataSetChanged();
+
+        RequestViewModelFactory requestViewModelFactory = InjectorUtils
+                .provideRequestViewModelFactory(this);
+
+        requestViewModel = ViewModelProviders
+                .of(this,requestViewModelFactory)
+                .get(RequestViewModel.class);
+        binding.setRequestViewModel(requestViewModel);
+
+
+
+
+        requestViewModel.getEntityMediatorLiveData().observe(this, newEntities->{
+            entityRecyclerAdapter.submitList(newEntities);
+        });
+
+
+
 
 
 
@@ -69,7 +98,7 @@ public class RequestsActivity extends AppCompatActivity {
 
         LoginViewModelFactory factory = InjectorUtils.provideLoginViewModelFactory(this);
         loginViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel.class);
-        binding.setViewModel(loginViewModel);
+        binding.setLoginViewModel(loginViewModel);
 
         getOutifNotLogin();
         getUserDetails();
@@ -108,5 +137,32 @@ public class RequestsActivity extends AppCompatActivity {
             loginViewModel.login.setLogged(true);
             loginViewModel.login.setLoginPressedEvent(false);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.request_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.request_menu_filter:
+
+                break;
+
+            case android.R.id.home:
+                if(drawerLayout.isDrawerOpen(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else
+                    drawerLayout.openDrawer(GravityCompat.START);
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

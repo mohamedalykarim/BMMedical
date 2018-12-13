@@ -6,24 +6,32 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.banquemisr.www.bmmedical.data.services.UserSyncIntentService;
+import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class NetworkDataHelper {
     private static final String ORACLE = "oracle";
     private static final String FETCH_USER_DATA = "get_user_data";
+    private static final String FETCH_ENTITIES_DATA = "get_entities_data";
     Context mContext;
     private static final Object LOCK = new Object();
     private static NetworkDataHelper sInstance;
     MutableLiveData<User> user;
+    MutableLiveData<List<MedicalEntity>> entities;
 
 
     private NetworkDataHelper(Context context) {
         mContext = context;
         user = new MutableLiveData<>();
+        entities = new MutableLiveData<>();
 
     }
 
@@ -44,31 +52,63 @@ public class NetworkDataHelper {
         return user;
     }
 
-    public void startFetchUserService(int oracle) {
+    public void startFetchUserService() {
         Intent intentToFetch = new Intent(mContext, UserSyncIntentService.class);
-        intentToFetch.putExtra(ORACLE, oracle);
         intentToFetch.setAction(FETCH_USER_DATA);
         mContext.startService(intentToFetch);
     }
 
-    public void fetchUser(int oracle){
+    public void startFetchEntitiesService() {
+        Intent intentToFetch = new Intent(mContext, UserSyncIntentService.class);
+        intentToFetch.setAction(FETCH_ENTITIES_DATA);
+        mContext.startService(intentToFetch);
+    }
 
-        FirebaseUtils.provideUserReference(oracle).addValueEventListener(new ValueEventListener() {
+    public void fetchUsers(){
+
+        FirebaseUtils.provideUsersReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    User retrievedUser = childSnapshot.getValue(User.class);
-                    user.setValue(retrievedUser);
-                }
+                    try{
+                        User retrievedUser = childSnapshot.getValue(User.class);
+                        user.setValue(retrievedUser);
+                    }catch (Exception e){
 
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                fetchUsers();
+            }
+        });
+    }
+
+
+    public void fetchEntities() {
+        FirebaseUtils.provideEntitiesReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<MedicalEntity> newEntities = new ArrayList<>();
+
+                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                        try{
+                            MedicalEntity medicalEntity = childSnapshot.getValue(MedicalEntity.class);
+                            newEntities.add(medicalEntity);
+                        }catch (Exception e){
+
+                        }
+                }
+                entities.setValue(newEntities);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                fetchUser(oracle);
+
             }
         });
     }
-
 }

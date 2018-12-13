@@ -8,7 +8,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.request_menu.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -55,7 +55,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$arch_version"
     annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
     implementation "android.arch.paging:runtime:$paging_version"
-
 
 
 }

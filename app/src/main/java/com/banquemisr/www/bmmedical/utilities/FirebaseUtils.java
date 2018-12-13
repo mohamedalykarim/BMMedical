@@ -14,7 +14,11 @@ public class FirebaseUtils {
         return FirebaseDatabase.getInstance().getReference("users");
     }
 
-    public static DatabaseReference provideUserReference(int Oracle){
-        return FirebaseDatabase.getInstance().getReference("users");
+    public static DatabaseReference provideUserReference(String oracle){
+        return FirebaseDatabase.getInstance().getReference("users").child(oracle);
+    }
+
+    public static DatabaseReference provideEntitiesReference(){
+        return FirebaseDatabase.getInstance().getReference("contractors");
     }
 }

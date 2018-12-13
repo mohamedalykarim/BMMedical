@@ -32,4 +32,5 @@
     <string name="doctor">Doctor:</string>
     <string name="hospital">Hospital</string>
     <string name="sorry_you_have_to_login_before_you_can_see_the_content">Sorry, You have to login before you can see the content</string>
+    <string name="title_activity_request_details">RequestDetails</string>
 </resources>

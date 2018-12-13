@@ -9,6 +9,8 @@ import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
 public class UserSyncIntentService extends IntentService {
     private static final String FETCH_USER_DATA = "get_user_data";
+    private static final String FETCH_ENTITIES_DATA = "get_entities_data";
+
 
 
     private static final String ORACLE = "oracle";
@@ -22,8 +24,9 @@ public class UserSyncIntentService extends IntentService {
         NetworkDataHelper networkDataHelper = InjectorUtils.provideNetworkDataHelper(this.getApplicationContext());
 
         if(intent.hasExtra(ORACLE) && intent.getAction().equals(FETCH_USER_DATA)){
-            int oracle = intent.getIntExtra(ORACLE,0);
-            networkDataHelper.fetchUser(oracle);
+            networkDataHelper.fetchUsers();
+        }else if(intent.getAction().equals(FETCH_ENTITIES_DATA)){
+            networkDataHelper.fetchEntities();
         }
 
     }

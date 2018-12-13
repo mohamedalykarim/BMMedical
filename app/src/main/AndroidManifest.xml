@@ -19,9 +19,15 @@
         <activity android:name=".ui.MainScreen.MainScreenActivity" />
         <activity android:name=".ui.Approvals.ApprovalsActivity" />
         <activity android:name=".ui.Informations.InformationsActivty" />
-        <activity android:name=".ui.Requests.RequestsActivity" />
-        <activity android:name=".ui.login.LoginActivity"></activity>
-        <service android:name=".data.services.UserSyncIntentService"/>
+        <activity android:name=".ui.requests.RequestsActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
+
+        <service android:name=".data.services.UserSyncIntentService" />
+
+        <activity
+            android:name=".ui.request_details.RequestDetails"
+            android:label="@string/title_activity_request_details"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

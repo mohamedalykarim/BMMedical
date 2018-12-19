@@ -11,6 +11,7 @@ import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ import java.util.List;
 
 
 public class NetworkDataHelper {
-    private static final String ORACLE = "oracle";
     private static final String FETCH_USER_DATA = "get_user_data";
     private static final String FETCH_ENTITIES_DATA = "get_entities_data";
+
     Context mContext;
     private static final Object LOCK = new Object();
     private static NetworkDataHelper sInstance;
@@ -86,9 +87,10 @@ public class NetworkDataHelper {
         });
     }
 
-
     public void fetchEntities() {
-        FirebaseUtils.provideEntitiesReference().addValueEventListener(new ValueEventListener() {
+        Query query = FirebaseUtils.provideEntitiesReference().orderByKey();
+
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<MedicalEntity> newEntities = new ArrayList<>();
@@ -111,4 +113,6 @@ public class NetworkDataHelper {
             }
         });
     }
+
+
 }

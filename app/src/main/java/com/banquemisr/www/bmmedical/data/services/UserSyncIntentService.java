@@ -13,6 +13,7 @@ public class UserSyncIntentService extends IntentService {
 
 
 
+
     private static final String ORACLE = "oracle";
 
     public UserSyncIntentService() {
@@ -23,7 +24,7 @@ public class UserSyncIntentService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         NetworkDataHelper networkDataHelper = InjectorUtils.provideNetworkDataHelper(this.getApplicationContext());
 
-        if(intent.hasExtra(ORACLE) && intent.getAction().equals(FETCH_USER_DATA)){
+        if(intent.getAction().equals(FETCH_USER_DATA)){
             networkDataHelper.fetchUsers();
         }else if(intent.getAction().equals(FETCH_ENTITIES_DATA)){
             networkDataHelper.fetchEntities();

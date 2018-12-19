@@ -13,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +28,6 @@ import com.banquemisr.www.bmmedical.databinding.ActivityRequestsBinding;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
-import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
@@ -62,7 +63,7 @@ public class RequestsActivity extends AppCompatActivity {
 
 
 
-        entityRecyclerAdapter = new EntityAdapter();
+        entityRecyclerAdapter = new EntityAdapter(this);
         entityRecyclerView = binding.entityRecyclerView;
         entityLayoutManager = new LinearLayoutManager(this);
 
@@ -70,7 +71,9 @@ public class RequestsActivity extends AppCompatActivity {
         entityRecyclerView.setAdapter(entityRecyclerAdapter);
 
 
-
+        /**
+         * Request View Model
+         */
 
         RequestViewModelFactory requestViewModelFactory = InjectorUtils
                 .provideRequestViewModelFactory(this);
@@ -78,18 +81,8 @@ public class RequestsActivity extends AppCompatActivity {
         requestViewModel = ViewModelProviders
                 .of(this,requestViewModelFactory)
                 .get(RequestViewModel.class);
+
         binding.setRequestViewModel(requestViewModel);
-
-
-
-
-        requestViewModel.getEntityMediatorLiveData().observe(this, newEntities->{
-            entityRecyclerAdapter.submitList(newEntities);
-        });
-
-
-
-
 
 
         /**
@@ -102,6 +95,8 @@ public class RequestsActivity extends AppCompatActivity {
 
         getOutifNotLogin();
         getUserDetails();
+        startListeningToMedicalEntities();
+        startListeningtoSearch();
 
     }
 
@@ -124,6 +119,33 @@ public class RequestsActivity extends AppCompatActivity {
             binding.setUser(newUser);
         });
     }
+
+    void startListeningToMedicalEntities(){
+        requestViewModel.getMedicalEntities(this).observe(this,pagedListEntity->{
+            entityRecyclerAdapter.submitList(pagedListEntity);
+        });
+    }
+
+    void startListeningtoSearch(){
+        requestViewModel.request.getSearchText().observe(this, searchText->{
+            if(searchText.equals("")){
+                requestViewModel.getMedicalEntities(this).observe(this,pagedListEntity->{
+                    entityRecyclerAdapter = null;
+                    entityRecyclerAdapter = new EntityAdapter(this);
+                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+                    entityRecyclerAdapter.submitList(pagedListEntity);
+                });
+            }else{
+                requestViewModel.getMedicalEntitiesBySearch(searchText,this).observe(this,pagedListEntity->{
+                    entityRecyclerAdapter = null;
+                    entityRecyclerAdapter = new EntityAdapter(this);
+                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+                    entityRecyclerAdapter.submitList(pagedListEntity);
+                });
+            }
+        });
+    }
+
 
 
     @Override
@@ -165,4 +187,7 @@ public class RequestsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }

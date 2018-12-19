@@ -1,40 +1,49 @@
 package com.banquemisr.www.bmmedical.Adapters;
 
 import android.arch.paging.PagedListAdapter;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.RowClinicItemBinding;
 import com.banquemisr.www.bmmedical.databinding.RowHospitalItemBinding;
+import com.banquemisr.www.bmmedical.ui.request_details.RequestDetailsActivity;
 import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 
 
 public class EntityAdapter extends PagedListAdapter<MedicalEntity,RecyclerView.ViewHolder> {
     private static final int CLINIC_TYPE = R.layout.row_clinic_item;
     private static final int HOSPITAL_TYPE = R.layout.row_hospital_item;
+    private static final String ENTITY_ID = "entity_id";
 
     RowHospitalItemBinding rowHospitalItemBinding;
     RowClinicItemBinding rowClinicItemBinding;
+    Context mContext;
 
-    public EntityAdapter() {
+    public EntityAdapter(Context context) {
         super(DIFF_CALLBACK);
+        mContext = context;
     }
 
     public static DiffUtil.ItemCallback<MedicalEntity> DIFF_CALLBACK
             = new DiffUtil.ItemCallback<MedicalEntity>() {
         @Override
         public boolean areItemsTheSame(@NonNull MedicalEntity medicalEntity, @NonNull MedicalEntity t1) {
-            return medicalEntity.getId()  == t1.getId();
+            return medicalEntity.getId().equals(t1.getId());
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull MedicalEntity medicalEntity, @NonNull MedicalEntity t1) {
             return medicalEntity.equals(t1);
         }
+
     };
 
     @NonNull
@@ -58,9 +67,21 @@ public class EntityAdapter extends PagedListAdapter<MedicalEntity,RecyclerView.V
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         if(getItemViewType(i) == CLINIC_TYPE){
             rowClinicItemBinding.setMedicalEntity(getItem(i));
+
+
+
         }else if(getItemViewType(i) == HOSPITAL_TYPE){
             rowHospitalItemBinding.setMedicalEntity(getItem(i));
         }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext.getApplicationContext(), RequestDetailsActivity.class);
+                intent.putExtra(ENTITY_ID,getItem(i).getId());
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

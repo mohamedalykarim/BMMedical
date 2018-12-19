@@ -51,6 +51,7 @@ dependencies {
 
     implementation "android.arch.lifecycle:runtime:$arch_version"
     implementation "android.arch.lifecycle:extensions:$arch_version"
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
     implementation "android.arch.persistence.room:runtime:$arch_version"
     annotationProcessor "android.arch.persistence.room:compiler:$arch_version"

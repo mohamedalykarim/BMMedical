@@ -35,6 +35,9 @@ public class AppRepository {
             });
         });
 
+        /**
+         / Insert the new Entities to the database;
+         */
         this.networkDataHelper.entities.observeForever(newEntities->{
             InjectorUtils.provideAppExecuter().diskIO().execute(()->{
                 entityDao.deleteALL();
@@ -43,6 +46,14 @@ public class AppRepository {
 
         });
     }
+
+
+
+
+
+    /*****************************************************************************
+                                  User
+    /*****************************************************************************/
 
     public synchronized static AppRepository getsInstance(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao, NetworkDataHelper networkDataHelper){
         if (sInstance == null) {
@@ -57,25 +68,6 @@ public class AppRepository {
     public LiveData<User> getUserByOracle(int oracle) {
         initializeUserData();
         return userDao.getUserByOracle(String.valueOf(oracle));
-    }
-
-    public DataSource.Factory<Integer, MedicalEntity> getRandomEntities() {
-        mExecutors.diskIO().execute(()->{
-            entityDao.deleteALL();
-        });
-
-        initializeEntitesData();
-        return entityDao.getEntities();
-    }
-
-    public DataSource.Factory<Integer,MedicalEntity> getEntitiesBySearch(String searchText) {
-        return entityDao.getEntitiesBySearch("%"+searchText+"%");
-    }
-
-    private void initializeEntitesData() {
-        mExecutors.diskIO().execute(()->{
-            startFetchEntitiesService();
-        });
     }
 
 
@@ -93,10 +85,6 @@ public class AppRepository {
         networkDataHelper.startFetchUserService();
     }
 
-    private void startFetchEntitiesService() {
-        networkDataHelper.startFetchEntitiesService();
-    }
-
 
     public void deleteALLUsers() {
         mExecutors.diskIO().execute(()->{
@@ -105,5 +93,39 @@ public class AppRepository {
     }
 
 
+    /*****************************************************************************
+                                        Entity
+     /*****************************************************************************/
 
+    public DataSource.Factory<Integer, MedicalEntity> getRandomEntities() {
+        initializeEntitiesData();
+        return entityDao.getEntities();
+    }
+
+    public DataSource.Factory<Integer, MedicalEntity> getEntitiesBySearch(String searchText) {
+        return entityDao.getEntitiesBySearch("%"+searchText+"%");
+    }
+
+
+
+    public void initializeEntitiesData() {
+        mExecutors.diskIO().execute(()->{
+            startFetchEntitiesService();
+        });
+    }
+
+    private void startFetchEntitiesService() {
+        networkDataHelper.startFetchEntitiesService();
+    }
+
+
+    public void deleteALLEntities() {
+        mExecutors.diskIO().execute(()->{
+            entityDao.deleteALL();
+        });
+    }
+
+    public LiveData<MedicalEntity> getEntityByID(String id) {
+        return entityDao.getEntityByID(id);
+    }
 }

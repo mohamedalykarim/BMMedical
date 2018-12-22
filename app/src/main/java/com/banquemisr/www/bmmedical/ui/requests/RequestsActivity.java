@@ -176,12 +176,6 @@ public class RequestsActivity extends AppCompatActivity {
 
                 break;
 
-            case android.R.id.home:
-                if(drawerLayout.isDrawerOpen(GravityCompat.START))
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                else
-                    drawerLayout.openDrawer(GravityCompat.START);
-                break;
 
         }
 

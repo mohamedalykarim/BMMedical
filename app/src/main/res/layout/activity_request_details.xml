@@ -5,6 +5,10 @@
 
     <data>
         <variable
+            name="requestDetailsViewModel"
+            type="com.banquemisr.www.bmmedical.ui.request_details.RequestDetailsViewModel"/>
+
+        <variable
             name="medicalEntity"
             type="com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity"/>
     </data>
@@ -113,7 +117,9 @@
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp">
+                        android:layout_height="30dp"
+                        android:onClick="@{()->requestDetailsViewModel.onMapClicked()}"
+                        >
 
                         <ImageView
                             android:id="@+id/imageView18"
@@ -293,6 +299,7 @@
                             android:layout_height="50dp"
                             android:layout_marginTop="50dp"
                             android:text="@string/ask_for_medical_request"
+                            android:onClick="@{()->requestDetailsViewModel.onAskForMedicalRequestClicked()}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

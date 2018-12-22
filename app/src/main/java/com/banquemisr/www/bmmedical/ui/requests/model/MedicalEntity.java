@@ -19,14 +19,14 @@ public class MedicalEntity {
     String doctor;
     String specialist;
     String branch;
-    long longitude;
-    long latitude ;
+    double longitude;
+    double latitude ;
 
     @Ignore
     public MedicalEntity() {
     }
 
-    public MedicalEntity(String id, String name, String type, String phone, String address, String price, String doctor, String specialist, String branch, long longitude, long latitude) {
+    public MedicalEntity(String id, String name, String type, String phone, String address, String price, String doctor, String specialist, String branch, double longitude, double latitude) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -76,11 +76,11 @@ public class MedicalEntity {
         return branch;
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
@@ -120,11 +120,11 @@ public class MedicalEntity {
         this.branch = branch;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 }

@@ -1,19 +1,29 @@
 package com.banquemisr.www.bmmedical.ui.entity_location;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.banquemisr.www.bmmedical.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class EntityMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    private static final String ENTITY_NAME = "entity_name";
+    private static final String ENTITY_LAT = "entity_lat";
+    private static final String ENTITY_LAN = "entity_lan";
 
     private GoogleMap mMap;
+
+    String name;
+    double lat, lan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +33,21 @@ public class EntityMapsActivity extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        if(null != intent){
+            if(intent.hasExtra(ENTITY_LAT) && intent.hasExtra(ENTITY_LAN)){
+                name = intent.getStringExtra(ENTITY_NAME);
+                lat = intent.getDoubleExtra(ENTITY_LAT,0);
+                lan = intent.getDoubleExtra(ENTITY_LAN,0);
+
+            }else {
+                finish();
+            }
+        }else{
+            finish();
+        }
+
     }
 
 
@@ -40,8 +65,8 @@ public class EntityMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng location = new LatLng(lat, lan);
+        mMap.addMarker(new MarkerOptions().position(location).title(name));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lan), 17.0f));
     }
 }

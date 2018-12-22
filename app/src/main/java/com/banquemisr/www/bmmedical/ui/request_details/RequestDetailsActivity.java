@@ -1,14 +1,18 @@
 package com.banquemisr.www.bmmedical.ui.request_details;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.banquemisr.www.bmmedical.R;
@@ -19,6 +23,9 @@ import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
 public class RequestDetailsActivity extends AppCompatActivity {
     private static final String ENTITY_ID = "entity_id";
+    private static final String ENTITY_NAME = "entity_name";
+    private static final String ENTITY_LAT = "entity_lat";
+    private static final String ENTITY_LAN = "entity_lan";
     private String entityID;
     private RequestDetailsViewModel requestDetailsViewModel;
     ActivityRequestDetailsBinding binding;
@@ -49,16 +56,64 @@ public class RequestDetailsActivity extends AppCompatActivity {
                     .of(this,requestDetailsViewModelFactory)
                     .get(RequestDetailsViewModel.class);
 
+            binding.setRequestDetailsViewModel(requestDetailsViewModel);
+
             requestDetailsViewModel.medicalEntity.observe(this, entity->{
                 binding.setMedicalEntity(entity);
                 getSupportActionBar().setTitle(entity.getName());
 
+                requestDetailsViewModel.pressMap.observe(this,isPressed->{
+                    Intent intent = new Intent(this, EntityMapsActivity.class);
+                    intent.putExtra(ENTITY_NAME,entity.getName());
+                    intent.putExtra(ENTITY_LAT,entity.getLatitude());
+                    intent.putExtra(ENTITY_LAN,entity.getLongitude());
+                    Log.v(entity.getLatitude()+"latitudem",entity.getLongitude()+"");
+
+                    startActivity(intent);
+                });
+
             });
 
+            requestDetailsViewModel.pressAskForMedicalRequest.observe(this,pressed->{
+                askForRequestAlertDialog();
+            });
 
         }
 
-        startActivity(new Intent(this, EntityMapsActivity.class));
+
+
+
+
+    }
+
+    void askForRequestAlertDialog(){
+        AlertDialog.Builder builder;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
+
+        builder.setTitle("Ask for medical Request!");
+        builder.setMessage("Are you sure of asking for medical request On "+ requestDetailsViewModel.medicalEntity.getValue().getName());
+
+        builder.setPositiveButton("Yes, I'm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setNegativeButton("No, I'm not", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+
 
     }
 

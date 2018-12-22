@@ -16,7 +16,7 @@ public class InjectorUtils {
         AppExecutor appExecutor = AppExecutor.getInstance();
         BMMedicalDatabase bmMedicalDatabase = BMMedicalDatabase.getsInstance(context);
         NetworkDataHelper networkDataHelper = NetworkDataHelper.getInstance(context);
-        return AppRepository.getsInstance(appExecutor,bmMedicalDatabase.userDao(), bmMedicalDatabase.entityDao(),networkDataHelper);
+        return AppRepository.getsInstance(appExecutor,bmMedicalDatabase.userDao(), bmMedicalDatabase.entityDao(), bmMedicalDatabase.requestDetailsDao(), networkDataHelper);
     }
 
     public static AppExecutor provideAppExecuter(){

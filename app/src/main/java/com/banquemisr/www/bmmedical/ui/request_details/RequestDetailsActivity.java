@@ -1,5 +1,6 @@
 package com.banquemisr.www.bmmedical.ui.request_details;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -14,21 +16,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 
+import com.banquemisr.www.bmmedical.Adapters.RequestsAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityRequestDetailsBinding;
+import com.banquemisr.www.bmmedical.databinding.NavMainBinding;
+import com.banquemisr.www.bmmedical.ui.MainScreen.MainScreenActivity;
 import com.banquemisr.www.bmmedical.ui.entity_location.EntityMapsActivity;
+import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
+import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
+import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.ui.requests.RequestViewModel;
+import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
+
+import java.util.List;
 
 public class RequestDetailsActivity extends AppCompatActivity {
     private static final String ENTITY_ID = "entity_id";
     private static final String ENTITY_NAME = "entity_name";
     private static final String ENTITY_LAT = "entity_lat";
     private static final String ENTITY_LAN = "entity_lan";
+    private static final int LOGIN_REQUEST = 1;
+
     private String entityID;
     private RequestDetailsViewModel requestDetailsViewModel;
     ActivityRequestDetailsBinding binding;
+    private LoginViewModel loginViewModel;
 
 
     @Override
@@ -40,6 +56,18 @@ public class RequestDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.parseColor("#dadada"));
         setSupportActionBar(toolbar);
+
+        /**
+         *  Login View Model
+         */
+
+        LoginViewModelFactory factory = InjectorUtils.provideLoginViewModelFactory(this);
+        loginViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel.class);
+        binding.setLoginViewModel(loginViewModel);
+
+        getOutifNotLogin();
+        getUserDetails();
+
 
 
 
@@ -60,6 +88,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
 
             requestDetailsViewModel.medicalEntity.observe(this, entity->{
                 binding.setMedicalEntity(entity);
+
+                if(null != entity)
                 getSupportActionBar().setTitle(entity.getName());
 
                 requestDetailsViewModel.pressMap.observe(this,isPressed->{
@@ -100,6 +130,11 @@ public class RequestDetailsActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.yes_i_m, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                /**
+                 * add the request
+                 */
+
+                requestDetailsViewModel.addTheMedicalRequest(loginViewModel.getUser().getValue());
 
             }
         });
@@ -114,6 +149,59 @@ public class RequestDetailsActivity extends AppCompatActivity {
         builder.show();
 
 
+    }
+
+    public void getOutifNotLogin(){
+        loginViewModel.login.getLoginPressedEvent().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean){
+                    startActivityForResult(new Intent(RequestDetailsActivity.this, LoginActivity.class), LOGIN_REQUEST);
+                }
+            }
+        });
+
+
+    }
+
+    void requestListView(List<RequestDetails> requestDetails){
+        NavMainBinding navMainBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.nav_main,null,false);
+        ListView listView = findViewById(R.id.request_list_view);
+        RequestsAdapter requestsAdapter = new RequestsAdapter(
+                this,
+                requestDetails
+        );
+        listView.setAdapter(requestsAdapter);
+    }
+
+    void getUserDetails(){
+        loginViewModel.getUser().observe(this, newUser->{
+            binding.setUser(newUser);
+
+            // Requests Details of the current user
+            if(null != newUser){
+                loginViewModel.getRequest(newUser.getOracle()+"")
+                        .observe(this, this::requestListView);
+            }
+
+
+
+        });
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(null == FirebaseUtils.provideFirebaseAuth().getCurrentUser()){
+            loginViewModel.login.setLogged(false);
+            loginViewModel.login.setLoginPressedEvent(false);
+        }else{
+            loginViewModel.login.setLogged(true);
+            loginViewModel.login.setLoginPressedEvent(false);
+        }
     }
 
 }

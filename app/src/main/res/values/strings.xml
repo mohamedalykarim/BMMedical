@@ -39,4 +39,9 @@
     <string name="are_you_sure_of_asking_for_medical_request">Are you sure of asking for medical request On </string>
     <string name="yes_i_m">Yes, I\'m</string>
     <string name="ni_iam_not">No, I\'m not</string>
+    <string name="search_by_name">Search By Name</string>
+    <string name="log_in">Log In</string>
+    <string name="welcome">Welcome</string>
+    <string name="log_out">Log out</string>
+    <string name="medical_request_title">Medical Request:</string>
 </resources>

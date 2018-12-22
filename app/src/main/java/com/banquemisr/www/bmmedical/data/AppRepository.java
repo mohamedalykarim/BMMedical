@@ -5,10 +5,14 @@ import android.arch.paging.DataSource;
 
 import com.banquemisr.www.bmmedical.AppExecutor;
 import com.banquemisr.www.bmmedical.data.database.EntityDao;
+import com.banquemisr.www.bmmedical.data.database.RequestDetailsDao;
 import com.banquemisr.www.bmmedical.data.database.UserDao;
+import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
+
+import java.util.List;
 
 public class AppRepository {
     private static final Object LOCK = new Object();
@@ -16,14 +20,16 @@ public class AppRepository {
     private final AppExecutor mExecutors;
     UserDao userDao;
     EntityDao entityDao;
+    RequestDetailsDao requestDetailsDao;
     LiveData<User> user;
 
     NetworkDataHelper networkDataHelper;
 
-    private AppRepository(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao, NetworkDataHelper networkDataHelper){
+    private AppRepository(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao, RequestDetailsDao requestDetailsDao, NetworkDataHelper networkDataHelper){
         mExecutors = appExecutor;
         this.userDao = userDao;
         this.entityDao = entityDao;
+        this.requestDetailsDao = requestDetailsDao;
         this.networkDataHelper = networkDataHelper;
 
         user = userDao.getUser();
@@ -45,6 +51,16 @@ public class AppRepository {
             });
 
         });
+
+
+        this.networkDataHelper.requests.observeForever(newRequests->{
+            InjectorUtils.provideAppExecuter().diskIO().execute(()->{
+                requestDetailsDao.deleteALL();
+                requestDetailsDao.bulkInsert(newRequests);
+            });
+        });
+
+
     }
 
 
@@ -52,13 +68,13 @@ public class AppRepository {
 
 
     /*****************************************************************************
-                                  User
+                                      User
     /*****************************************************************************/
 
-    public synchronized static AppRepository getsInstance(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao, NetworkDataHelper networkDataHelper){
+    public synchronized static AppRepository getsInstance(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao, RequestDetailsDao requestDetailsDao, NetworkDataHelper networkDataHelper){
         if (sInstance == null) {
             synchronized (LOCK) {
-                sInstance = new AppRepository(appExecutor,userDao, entityDao, networkDataHelper);
+                sInstance = new AppRepository(appExecutor,userDao, entityDao, requestDetailsDao, networkDataHelper);
             }
         }
         return sInstance;
@@ -119,13 +135,34 @@ public class AppRepository {
     }
 
 
-    public void deleteALLEntities() {
-        mExecutors.diskIO().execute(()->{
-            entityDao.deleteALL();
-        });
-    }
-
     public LiveData<MedicalEntity> getEntityByID(String id) {
         return entityDao.getEntityByID(id);
+    }
+
+    /*****************************************************************************
+                                        Requests
+     /*****************************************************************************/
+
+    public void addTheMedicalRequest(RequestDetails requestDetails) {
+        networkDataHelper.startAddTheMedicalRequest(requestDetails);
+    }
+
+
+    public LiveData<List<RequestDetails>> getRequests(String oracle) {
+        initializeRequestsDetails(oracle);
+        return requestDetailsDao.getRequestsDetails();
+    }
+
+    private void initializeRequestsDetails(String oracle) {
+        mExecutors.diskIO().execute(()->{
+            requestDetailsDao.deleteALL();
+        });
+
+        startFetchRequestDetailsService(oracle);
+    }
+
+    private void startFetchRequestDetailsService(String oracle) {
+        networkDataHelper.startFetchRequestDetailsService(oracle);
+
     }
 }

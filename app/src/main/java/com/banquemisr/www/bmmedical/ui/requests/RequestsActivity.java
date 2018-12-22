@@ -20,14 +20,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.banquemisr.www.bmmedical.Adapters.EntityAdapter;
+import com.banquemisr.www.bmmedical.Adapters.RequestsAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityRequestsBinding;
+import com.banquemisr.www.bmmedical.databinding.NavMainBinding;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
@@ -72,7 +76,7 @@ public class RequestsActivity extends AppCompatActivity {
 
 
         /**
-         * Request View Model
+         * RequestDetails View Model
          */
 
         RequestViewModelFactory requestViewModelFactory = InjectorUtils
@@ -114,9 +118,28 @@ public class RequestsActivity extends AppCompatActivity {
 
     }
 
+    void requestListView(List<RequestDetails> requestDetails){
+        NavMainBinding navMainBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.nav_main,null,false);
+        ListView listView = findViewById(R.id.request_list_view);
+        RequestsAdapter requestsAdapter = new RequestsAdapter(
+                this,
+                requestDetails
+        );
+        listView.setAdapter(requestsAdapter);
+    }
+
     void getUserDetails(){
         loginViewModel.getUser().observe(this, newUser->{
             binding.setUser(newUser);
+
+            // Requests Details of the current user
+            if(null != newUser){
+                loginViewModel.getRequest(newUser.getOracle()+"")
+                        .observe(this, this::requestListView);
+            }
+
+
+
         });
     }
 

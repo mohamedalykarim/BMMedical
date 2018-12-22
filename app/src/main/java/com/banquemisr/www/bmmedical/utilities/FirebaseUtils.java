@@ -21,4 +21,8 @@ public class FirebaseUtils {
     public static DatabaseReference provideEntitiesReference(){
         return FirebaseDatabase.getInstance().getReference("contractors");
     }
+
+    public static DatabaseReference provideRequestsReference(){
+        return FirebaseDatabase.getInstance().getReference("requests");
+    }
 }

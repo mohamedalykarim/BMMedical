@@ -8,17 +8,21 @@ import android.util.Log;
 import com.banquemisr.www.bmmedical.data.AppRepository;
 import com.banquemisr.www.bmmedical.ui.login.model.Login;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
+import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 
 public class LoginViewModel extends ViewModel{
     public Login login;
     private FirebaseAuth mAuth;
     LiveData<User> user;
+    LiveData<List<RequestDetails>> request;
 
     AppRepository appRepository;
 
@@ -91,5 +95,10 @@ public class LoginViewModel extends ViewModel{
 
     public void setUser(LiveData<User> user) {
         this.user = user;
+    }
+
+    public LiveData<List<RequestDetails>> getRequest(String oracle) {
+        request = appRepository.getRequests(oracle);
+        return request;
     }
 }

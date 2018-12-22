@@ -66,4 +66,8 @@
     <string name="doctor">اسم الدكتور:</string>
     <string name="sorry_you_have_to_login_before_you_can_see_the_content">عذرا، يجب عليك تسجيل الدخول حتى تتمكن من عرض المحتوى</string>
     <string name="ask_for_medical_request">طلب خدمة طبية</string>
+    <string name="ask_for_medical_request_title_alert">طلب خدمة طبية!</string>
+    <string name="are_you_sure_of_asking_for_medical_request">هل انت متاكد من طلب الخدمة الطبية فى </string>
+    <string name="yes_i_m">نعم، متأكد</string>
+    <string name="ni_iam_not">لا، لست متأكد</string>
 </resources>

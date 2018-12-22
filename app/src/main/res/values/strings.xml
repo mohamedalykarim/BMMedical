@@ -35,4 +35,8 @@
     <string name="title_activity_request_details">RequestDetails</string>
     <string name="title_activity_entity_maps">Map</string>
     <string name="ask_for_medical_request">Ask For Medical Request</string>
+    <string name="ask_for_medical_request_title_alert">Ask for medical Request!</string>
+    <string name="are_you_sure_of_asking_for_medical_request">Are you sure of asking for medical request On </string>
+    <string name="yes_i_m">Yes, I\'m</string>
+    <string name="ni_iam_not">No, I\'m not</string>
 </resources>

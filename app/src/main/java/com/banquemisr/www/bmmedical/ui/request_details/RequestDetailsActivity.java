@@ -67,7 +67,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
                     intent.putExtra(ENTITY_NAME,entity.getName());
                     intent.putExtra(ENTITY_LAT,entity.getLatitude());
                     intent.putExtra(ENTITY_LAN,entity.getLongitude());
-                    Log.v(entity.getLatitude()+"latitudem",entity.getLongitude()+"");
 
                     startActivity(intent);
                 });
@@ -95,17 +94,17 @@ public class RequestDetailsActivity extends AppCompatActivity {
             builder = new AlertDialog.Builder(this);
         }
 
-        builder.setTitle("Ask for medical Request!");
-        builder.setMessage("Are you sure of asking for medical request On "+ requestDetailsViewModel.medicalEntity.getValue().getName());
+        builder.setTitle(R.string.ask_for_medical_request_title_alert);
+        builder.setMessage(getString(R.string.are_you_sure_of_asking_for_medical_request)+ requestDetailsViewModel.medicalEntity.getValue().getName());
 
-        builder.setPositiveButton("Yes, I'm", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.yes_i_m, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
             }
         });
 
-        builder.setNegativeButton("No, I'm not", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.ni_iam_not, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

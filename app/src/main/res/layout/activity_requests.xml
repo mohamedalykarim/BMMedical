@@ -102,7 +102,8 @@
                                android:layout_marginBottom="10dp"
                                android:background="@color/black_transparent"
                                android:text="@={requestViewModel.request.searchText}"
-                               android:hint="Search By Name"
+                               android:textAlignment="viewStart"
+                               android:hint="@string/search_by_name"
                                android:padding="5dp"
                                android:paddingStart="30dp"
                                android:textColor="@color/da"
@@ -112,7 +113,7 @@
                            <ImageView
                                android:layout_width="20dp"
                                android:layout_height="20dp"
-                               android:layout_gravity="center_vertical"
+                               android:layout_gravity="center_vertical|start"
                                android:layout_marginStart="5dp"
                                android:src="@android:drawable/ic_search_category_default" />
 

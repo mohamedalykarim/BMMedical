@@ -20,6 +20,7 @@ import com.banquemisr.www.bmmedical.ui.MainScreen.MainScreenActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
@@ -103,6 +104,21 @@ public class InformationsActivty extends AppCompatActivity {
     void getUserDetails(){
         loginViewModel.getUser().observe(this, newUser->{
             binding.setUser(newUser);
+
+            // Requests Details of the current user
+            if(null != newUser){
+                loginViewModel.getRequest(newUser.getOracle()+"")
+                        .observe(this, requests->{
+
+                            for (RequestDetails requestDetails: requests){
+                                View view = getLayoutInflater().inflate(R.layout.row_request_list_item,null,false);
+                                binding.navMain.requestsList.addView(view);
+                            }
+                        });
+            }
+
+
+
         });
     }
 

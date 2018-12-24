@@ -44,4 +44,17 @@
     <string name="welcome">Welcome</string>
     <string name="log_out">Log out</string>
     <string name="medical_request_title">Medical Request:</string>
+    <string name="banque_misr_medical_request_transformation">Banque Misr Medical Transformation</string>
+    <string name="the_examination_and_transformation_value_will_be_charged_from_your_account">
+        This Transformation will be expired in 15 days, You can\'t create another transformation of the same specialization before 15 days, The examination and transformation value will be charged from your account
+    </string>
+    <string name="transformation_number">Transformation Number:</string>
+    <string name="branch_title">Branch:</string>
+    <string name="beneficiary_name_title">Beneficiary Name:</string>
+    <string name="address_title">Address:</string>
+    <string name="this_transformation_provided_to">This transformation provided to:</string>
+    <string name="filter">Filter</string>
+    <string name="print">Print</string>
+    <string name="transformation">Transformation</string>
+    <string name="transformation_date">Transformation Date: </string>
 </resources>

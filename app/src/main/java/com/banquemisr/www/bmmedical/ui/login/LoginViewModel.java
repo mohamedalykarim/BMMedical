@@ -3,12 +3,12 @@ package com.banquemisr.www.bmmedical.ui.login;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.banquemisr.www.bmmedical.data.AppRepository;
 import com.banquemisr.www.bmmedical.ui.login.model.Login;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
+import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -100,5 +100,9 @@ public class LoginViewModel extends ViewModel{
     public LiveData<List<RequestDetails>> getRequest(String oracle) {
         request = appRepository.getRequests(oracle);
         return request;
+    }
+
+    public LiveData<MedicalEntity> getEntityById(String contractorId) {
+        return appRepository.getEntityById(contractorId);
     }
 }

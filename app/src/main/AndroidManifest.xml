@@ -49,7 +49,8 @@
 
         <activity
             android:name=".ui.entity_location.EntityMapsActivity"
-            android:label="@string/title_activity_entity_maps"></activity>
+            android:label="@string/title_activity_entity_maps" />
+        <activity android:name=".ui.my_request_details.MyRequestDetailsActivity"></activity>
     </application>
 
 </manifest>

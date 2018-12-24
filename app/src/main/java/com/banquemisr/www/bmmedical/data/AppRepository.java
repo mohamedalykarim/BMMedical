@@ -122,6 +122,10 @@ public class AppRepository {
         return entityDao.getEntitiesBySearch("%"+searchText+"%");
     }
 
+    public LiveData<MedicalEntity> getEntityById(String id){
+        return entityDao.getEntityByID(id);
+    }
+
 
 
     public void initializeEntitiesData() {

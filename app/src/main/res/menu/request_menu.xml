@@ -6,6 +6,6 @@
         android:id="@+id/request_menu_filter"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         app:showAsAction="always|withText"
-        android:title="Filter By"/>
+        android:title="@string/filter"/>
 
 </menu>

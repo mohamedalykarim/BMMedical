@@ -25,6 +25,8 @@ public class RequestsAdapter extends ArrayAdapter<RequestDetails> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.row_request_list_item,parent,false);
+
+
         RequestDetails requestDetails = getItem(position);
 
         TextView name = view.findViewById(R.id.name_tv);

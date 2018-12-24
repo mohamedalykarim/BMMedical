@@ -164,15 +164,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
 
     }
 
-    void requestListView(List<RequestDetails> requestDetails){
-        NavMainBinding navMainBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.nav_main,null,false);
-        ListView listView = findViewById(R.id.request_list_view);
-        RequestsAdapter requestsAdapter = new RequestsAdapter(
-                this,
-                requestDetails
-        );
-        listView.setAdapter(requestsAdapter);
-    }
 
     void getUserDetails(){
         loginViewModel.getUser().observe(this, newUser->{
@@ -181,7 +172,13 @@ public class RequestDetailsActivity extends AppCompatActivity {
             // Requests Details of the current user
             if(null != newUser){
                 loginViewModel.getRequest(newUser.getOracle()+"")
-                        .observe(this, this::requestListView);
+                        .observe(this, requests->{
+
+                            for (RequestDetails requestDetails: requests){
+                                View view = getLayoutInflater().inflate(R.layout.row_request_list_item,null,false);
+                                binding.navMain.requestsList.addView(view);
+                            }
+                        });
             }
 
 

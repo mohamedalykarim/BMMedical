@@ -75,4 +75,17 @@
     <string name="welcome">مرحبــا</string>
     <string name="log_out">تسجيل الخروج</string>
     <string name="medical_request_title">الخدمة الطبية: </string>
+    <string name="banque_misr_medical_request_transformation">موافقة خدمة طبية من بنك مصر</string>
+    <string name="the_examination_and_transformation_value_will_be_charged_from_your_account">
+        هذا التحويل ساري لمدة 15 يوم، ولا يجوز استخراج تحويل لنفس التخصص خلال 15 يوم، وسيتم خصم قيمة العرض والتحويل من حسابكم</string>
+    <string name="transformation_number">رقم التحويل:</string>
+    <string name="branch_title">الفرع:</string>
+    <string name="beneficiary_name_title">أسم المستفيد:</string>
+    <string name="address_title">العنوان:</string>
+    <string name="this_transformation_provided_to">يتم تقديم هذا التحويل الى:</string>
+    <string name="filter">فلتر</string>
+    <string name="print">طباعة</string>
+    <string name="transformation">تحويل</string>
+    <string name="transformation_date">تاريخ التحويل:</string>
+
 </resources>

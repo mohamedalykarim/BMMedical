@@ -190,6 +190,7 @@
             android:fitsSystemWindows="true">
 
             <include
+                android:id="@+id/nav_main"
                 layout="@layout/nav_main"
                 bind:loginViewModel="@{loginViewModel}"
                 bind:user="@{user}" />

@@ -13,21 +13,25 @@ public class User {
     private String phone;
     private String address;
     private String branch;
-    private String position;
+    private String degree;
+    private String career;
     private long latitude;
     private long longitude;
+
 
     @Ignore
     public User() {
     }
 
-    public User(int oracle, String name, String phone, String address, String branch, String position, long latitude, long longitude) {
+    public User(int oracle, String name, String phone, String address, String branch,
+                String degree, String career, long latitude, long longitude) {
         this.oracle = oracle;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.branch = branch;
-        this.position = position;
+        this.degree = degree;
+        this.career = career;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -52,8 +56,13 @@ public class User {
         return branch;
     }
 
-    public String getPosition() {
-        return position;
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public String getCareer() {
+        return career;
     }
 
     public long getLatitude() {
@@ -88,11 +97,16 @@ public class User {
         this.latitude = latitude;
     }
 
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
+    }
+
     public void setLongitude(long longitude) {
         this.longitude = longitude;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
 }

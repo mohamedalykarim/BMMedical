@@ -46,7 +46,6 @@ public class AppRepository {
          */
         this.networkDataHelper.entities.observeForever(newEntities->{
             InjectorUtils.provideAppExecuter().diskIO().execute(()->{
-                entityDao.deleteALL();
                 entityDao.bulkInsert(newEntities);
             });
 
@@ -55,7 +54,6 @@ public class AppRepository {
 
         this.networkDataHelper.requests.observeForever(newRequests->{
             InjectorUtils.provideAppExecuter().diskIO().execute(()->{
-                requestDetailsDao.deleteALL();
                 requestDetailsDao.bulkInsert(newRequests);
             });
         });
@@ -85,6 +83,11 @@ public class AppRepository {
         initializeUserData();
         return userDao.getUserByOracle(String.valueOf(oracle));
     }
+
+    public LiveData<User> getUserByOracleNoIni(int oracle) {
+        return userDao.getUserByOracle(String.valueOf(oracle));
+    }
+
 
 
     public LiveData<User> getUser() {
@@ -139,10 +142,6 @@ public class AppRepository {
     }
 
 
-    public LiveData<MedicalEntity> getEntityByID(String id) {
-        return entityDao.getEntityByID(id);
-    }
-
     /*****************************************************************************
                                         Requests
      /*****************************************************************************/
@@ -157,6 +156,12 @@ public class AppRepository {
         return requestDetailsDao.getRequestsDetails();
     }
 
+    public LiveData<RequestDetails> getRequestById(String id) {
+        return requestDetailsDao.getRequstDetailsById(id);
+    }
+
+
+
     private void initializeRequestsDetails(String oracle) {
         mExecutors.diskIO().execute(()->{
             requestDetailsDao.deleteALL();
@@ -167,6 +172,6 @@ public class AppRepository {
 
     private void startFetchRequestDetailsService(String oracle) {
         networkDataHelper.startFetchRequestDetailsService(oracle);
-
     }
+
 }

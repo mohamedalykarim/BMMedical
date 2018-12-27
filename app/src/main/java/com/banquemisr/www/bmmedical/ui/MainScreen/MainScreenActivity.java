@@ -4,32 +4,24 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.banquemisr.www.bmmedical.Adapters.MenuAdapter;
-import com.banquemisr.www.bmmedical.Adapters.RequestsAdapter;
 import com.banquemisr.www.bmmedical.data.model.MenuItem;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityMainScreenBinding;
-import com.banquemisr.www.bmmedical.databinding.NavMainBinding;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
-import com.banquemisr.www.bmmedical.ui.login.model.User;
-import com.banquemisr.www.bmmedical.ui.my_request_details.MyRequestDetailsActivity;
+import com.banquemisr.www.bmmedical.ui.transaction.TransactionDetailsActivity;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
-import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
@@ -140,7 +132,7 @@ public class MainScreenActivity extends AppCompatActivity {
                                     view.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            Intent intent = new Intent(MainScreenActivity.this,MyRequestDetailsActivity.class);
+                                            Intent intent = new Intent(MainScreenActivity.this,TransactionDetailsActivity.class);
                                             intent.putExtra(MY_REQUEST_ID, requestDetails.getId());
                                             startActivity(intent);
                                         }

@@ -20,7 +20,7 @@ public class RequestDetailsViewModel extends ViewModel {
 
     public RequestDetailsViewModel(AppRepository appRepository, String id) {
         this.appRepository = appRepository;
-        medicalEntity = appRepository.getEntityByID(id);
+        medicalEntity = appRepository.getEntityById(id);
         pressMap = new MutableLiveData<>();
         pressAskForMedicalRequest = new MutableLiveData<>();
     }
@@ -38,7 +38,7 @@ public class RequestDetailsViewModel extends ViewModel {
         RequestDetails requestDetails = new RequestDetails();
         requestDetails.setDate(System.currentTimeMillis());
         requestDetails.setContractorId(medicalEntity.getValue().getId());
-        requestDetails.setUserOracle(user.getOracle());
+        requestDetails.setOracle(user.getOracle());
         requestDetails.setStatus("approved");
         requestDetails.setName(medicalEntity.getValue().getName());
 

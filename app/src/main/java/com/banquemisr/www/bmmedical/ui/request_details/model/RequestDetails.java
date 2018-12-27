@@ -14,31 +14,50 @@ public class RequestDetails implements Parcelable {
     String id;
     long date;
     String contractorId;
-    int userOracle;
+    int oracle;
     String status;
     String name;
+
 
 
     @Ignore
     public RequestDetails() {
     }
 
-    public RequestDetails(String id, long date, String contractorId, int userOracle) {
+    public RequestDetails(@NonNull String id, long date, String contractorId, int oracle, String status, String name) {
         this.id = id;
         this.date = date;
         this.contractorId = contractorId;
-        this.userOracle = userOracle;
+        this.oracle = oracle;
+        this.status = status;
+        this.name = name;
     }
-
 
     @Ignore
     protected RequestDetails(Parcel in) {
         id = in.readString();
         date = in.readLong();
         contractorId = in.readString();
-        userOracle = in.readInt();
+        oracle = in.readInt();
         status = in.readString();
         name = in.readString();
+    }
+
+    @Ignore
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeLong(date);
+        dest.writeString(contractorId);
+        dest.writeInt(oracle);
+        dest.writeString(status);
+        dest.writeString(name);
+    }
+
+    @Ignore
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Ignore
@@ -66,8 +85,8 @@ public class RequestDetails implements Parcelable {
         return contractorId;
     }
 
-    public int getUserOracle() {
-        return userOracle;
+    public int getOracle() {
+        return oracle;
     }
 
     public String getStatus() {
@@ -78,7 +97,7 @@ public class RequestDetails implements Parcelable {
         return name;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
@@ -90,8 +109,8 @@ public class RequestDetails implements Parcelable {
         this.contractorId = contractorId;
     }
 
-    public void setUserOracle(int userOracle) {
-        this.userOracle = userOracle;
+    public void setOracle(int oracle) {
+        this.oracle = oracle;
     }
 
     public void setStatus(String status) {
@@ -100,22 +119,5 @@ public class RequestDetails implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Ignore
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Ignore
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeLong(date);
-        dest.writeString(contractorId);
-        dest.writeInt(userOracle);
-        dest.writeString(status);
-        dest.writeString(name);
     }
 }

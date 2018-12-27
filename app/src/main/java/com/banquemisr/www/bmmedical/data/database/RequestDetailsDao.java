@@ -21,6 +21,9 @@ public interface RequestDetailsDao {
     @Query("SELECT * FROM requestdetails ORDER BY date ASC")
     LiveData<List<RequestDetails>> getRequestsDetails();
 
+    @Query("SELECT * FROM requestdetails WHERE id = :id")
+    LiveData<RequestDetails> getRequstDetailsById(String id);
+
     @Query("DELETE FROM requestdetails")
     void deleteALL();
 

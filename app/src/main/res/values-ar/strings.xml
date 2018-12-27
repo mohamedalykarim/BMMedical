@@ -60,7 +60,6 @@
 
 </string>
     <string name="clinic">عيادة</string>
-    <string name="specialist">التخصص:</string>
     <string name="phone">رقم التليفون:</string>
     <string name="address">العنوان:</string>
     <string name="doctor">اسم الدكتور:</string>
@@ -87,5 +86,11 @@
     <string name="print">طباعة</string>
     <string name="transformation">تحويل</string>
     <string name="transformation_date">تاريخ التحويل:</string>
+    <string name="name_title">الاسم:</string>
+    <string name="phone_title">التليفون:</string>
+    <string name="specialization_title">التخصص:</string>
+    <string name="service_type_examination_includes_counseling">بيان الخدمة المقدمة: كشف يشمل الاستشارة</string>
+    <string name="transformation_details">بيانات التحويل</string>
+    <string name="employee_information">معلومات الموظف</string>
 
 </resources>

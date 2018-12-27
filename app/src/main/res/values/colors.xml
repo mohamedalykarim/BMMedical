@@ -6,6 +6,8 @@
 
     <color name="mainBG">#1e2c49</color>
     <color name="da">#dadada</color>
+    <color name="title_black">#0a0a0a</color>
+    <color name="details_font">#414141</color>
     <color name="black_transparent">#c6000000</color>
     <color name="blue_transparent">#d6000820</color>
     <color name="black_transparent_hint">#c5919191</color>

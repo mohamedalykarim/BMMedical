@@ -9,6 +9,7 @@ import com.banquemisr.www.bmmedical.data.database.BMMedicalDatabase;
 import com.banquemisr.www.bmmedical.ui.request_details.RequestDetailsViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.requests.RequestViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.transaction.TransactionDetailsVmFactory;
 
 public class InjectorUtils {
 
@@ -35,6 +36,11 @@ public class InjectorUtils {
     public static RequestViewModelFactory provideRequestViewModelFactory(Context context){
         AppRepository appRepository = InjectorUtils.provideRepository(context);
         return new RequestViewModelFactory(appRepository);
+    }
+
+    public static TransactionDetailsVmFactory provideTransactionFactory(Context context){
+        AppRepository appRepository = InjectorUtils.provideRepository(context);
+        return new TransactionDetailsVmFactory(appRepository);
     }
 
     public static RequestDetailsViewModelFactory provideRequestDetailViewModelFactory(Context context, String id){

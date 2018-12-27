@@ -148,7 +148,7 @@ public class NetworkDataHelper {
         String id = requestReference.getKey();
         requestDetails.setId(id);
 
-        FirebaseUtils.provideRequestsReference().child(requestDetails.getUserOracle()+"").child(requestDetails.getId()).setValue(requestDetails)
+        FirebaseUtils.provideRequestsReference().child(requestDetails.getOracle()+"").child(requestDetails.getId()).setValue(requestDetails)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

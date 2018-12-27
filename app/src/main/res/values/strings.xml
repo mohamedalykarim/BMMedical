@@ -26,7 +26,6 @@
     <string name="prevention_is_better_than_cure">Prevention is better than cure:</string>
     <string name="prevention_is_better_than_cure_content">Don\'t be fooled by the health halo of pecans: A single slice of this pie packs around 500 calories and more than 30 grams of sugar—and that\'s before you add whipped cream or with ice cream.Don\'t be fooled by the health halo of pecans: A single slice of this pie packs around 500 calories and more than 30 grams of sugar—and that\'s before you add whipped cream or with ice cream.Don\'t be fooled by the health halo of pecans: A single slice of this pie packs around 500 calories and more than 30 grams of sugar—and that\'s before you add whipped cream or with ice cream.</string>
     <string name="clinic">Clinic</string>
-    <string name="specialist">Specialist:</string>
     <string name="phone">Phone:</string>
     <string name="address">Address:</string>
     <string name="doctor">Doctor:</string>
@@ -57,4 +56,10 @@
     <string name="print">Print</string>
     <string name="transformation">Transformation</string>
     <string name="transformation_date">Transformation Date: </string>
+    <string name="name_title">Name:</string>
+    <string name="phone_title">Phone:</string>
+    <string name="specialization_title">Specialization:</string>
+    <string name="service_type_examination_includes_counseling">Service Type: Examination includes counseling</string>
+    <string name="transformation_details">Transformation Details</string>
+    <string name="employee_information">Employee Information</string>
 </resources>

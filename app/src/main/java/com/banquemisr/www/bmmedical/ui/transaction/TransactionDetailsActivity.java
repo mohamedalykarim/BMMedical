@@ -60,6 +60,7 @@ public class TransactionDetailsActivity extends AppCompatActivity {
 
                     transactionVM.getUser(transaction.getOracle()).observe(this, user->{
                         if(null != user)
+
                         binding.setUser(user);
                     });
                 }

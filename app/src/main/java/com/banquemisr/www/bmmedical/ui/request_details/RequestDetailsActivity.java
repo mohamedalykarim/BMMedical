@@ -133,8 +133,9 @@ public class RequestDetailsActivity extends AppCompatActivity {
                 /**
                  * add the request
                  */
+                requestDetailsViewModel.addTheMedicalRequest(loginViewModel.getUser().getValue(), getApplicationContext());
 
-                requestDetailsViewModel.addTheMedicalRequest(loginViewModel.getUser().getValue());
+                finish();
 
             }
         });

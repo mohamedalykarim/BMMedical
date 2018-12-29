@@ -7,16 +7,21 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 @Entity
 public class RequestDetails implements Parcelable {
     @PrimaryKey
     @NonNull
     String id;
-    long date;
+    Date date;
     String contractorId;
     int oracle;
     String status;
     String name;
+    String benfituaryName;
+    String specialization;
+
 
 
 
@@ -24,34 +29,41 @@ public class RequestDetails implements Parcelable {
     public RequestDetails() {
     }
 
-    public RequestDetails(@NonNull String id, long date, String contractorId, int oracle, String status, String name) {
+    public RequestDetails(@NonNull String id, Date date, String contractorId, int oracle, String status, String name, String benfituaryName, String specialization) {
         this.id = id;
         this.date = date;
         this.contractorId = contractorId;
         this.oracle = oracle;
         this.status = status;
         this.name = name;
+        this.benfituaryName = benfituaryName;
+        this.specialization = specialization;
     }
+
 
     @Ignore
     protected RequestDetails(Parcel in) {
         id = in.readString();
-        date = in.readLong();
+        date = (Date) in.readSerializable();
         contractorId = in.readString();
         oracle = in.readInt();
         status = in.readString();
         name = in.readString();
+        benfituaryName = in.readString();
+        specialization = in.readString();
     }
 
     @Ignore
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeLong(date);
+        dest.writeSerializable(date);
         dest.writeString(contractorId);
         dest.writeInt(oracle);
         dest.writeString(status);
         dest.writeString(name);
+        dest.writeString(benfituaryName);
+        dest.writeString(specialization);
     }
 
     @Ignore
@@ -73,11 +85,12 @@ public class RequestDetails implements Parcelable {
         }
     };
 
+    @NonNull
     public String getId() {
         return id;
     }
 
-    public long getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -97,11 +110,19 @@ public class RequestDetails implements Parcelable {
         return name;
     }
 
+    public String getBenfituaryName() {
+        return benfituaryName;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
     public void setId(@NonNull String id) {
         this.id = id;
     }
 
-    public void setDate(long date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -119,5 +140,13 @@ public class RequestDetails implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setBenfituaryName(String benfituaryName) {
+        this.benfituaryName = benfituaryName;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 }

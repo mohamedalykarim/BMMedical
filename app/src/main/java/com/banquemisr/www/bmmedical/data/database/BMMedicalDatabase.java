@@ -12,6 +12,7 @@ import com.banquemisr.www.bmmedical.ui.login.model.User;
 
 
 @Database(entities = {User.class, MedicalEntity.class, RequestDetails.class}, version = 1)
+@TypeConverters({DateTypeConverter.class})
 public abstract class BMMedicalDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "com.banquemisr.www.bmmedical";
 

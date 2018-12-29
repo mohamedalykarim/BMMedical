@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text='@{request.date + ""}'
+                    android:text='@{@string/format(request.date)}'
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -190,7 +190,7 @@
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/rounded1"
                         android:padding="10dp"
-                        android:text="محمود محمد محمود جبر"
+                        android:text="@{request.benfituaryName}"
                         android:textAlignment="viewStart"
                         android:textColor="@color/title_black"
                         android:textSize="12sp"

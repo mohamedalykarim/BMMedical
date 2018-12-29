@@ -80,6 +80,7 @@
     <string name="transformation_number">رقم التحويل:</string>
     <string name="branch_title">الفرع:</string>
     <string name="beneficiary_name_title">أسم المستفيد:</string>
+    <string name="beneficiary_name">أسم المستفيد</string>
     <string name="address_title">العنوان:</string>
     <string name="this_transformation_provided_to">يتم تقديم هذا التحويل الى:</string>
     <string name="filter">فلتر</string>
@@ -92,5 +93,7 @@
     <string name="service_type_examination_includes_counseling">بيان الخدمة المقدمة: كشف يشمل الاستشارة</string>
     <string name="transformation_details">بيانات التحويل</string>
     <string name="employee_information">معلومات الموظف</string>
+    <string name="benfituary_name_self">نفسه</string>
+    <string name="sorry_you_have_an_exist_transformation_for_this_specialization_within_15_days">عفوا، لا يمكنك طلب هذا التحويل الان لان لديك طلب تحويل بالفعل لنفس التخصص خلال الخمس عشر يوم السابقة</string>
 
 </resources>

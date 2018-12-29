@@ -148,19 +148,46 @@ public class NetworkDataHelper {
         String id = requestReference.getKey();
         requestDetails.setId(id);
 
-        FirebaseUtils.provideRequestsReference().child(requestDetails.getOracle()+"").child(requestDetails.getId()).setValue(requestDetails)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        FirebaseUtils.provideRequestsReference()
+                .child(requestDetails.getOracle()+"")
+                .orderByChild("specialization")
+                .equalTo(requestDetails.getSpecialization())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if(dataSnapshot.getChildrenCount() == 0){
+
+                            FirebaseUtils.provideRequestsReference().child(requestDetails.getOracle()+"").child(requestDetails.getId()).setValue(requestDetails)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                        }
+                                    });
+
+
+                        }
+
 
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+
                     @Override
-                    public void onFailure(@NonNull Exception e) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
+
+
+
+
+
 
     }
 

@@ -27,5 +27,6 @@ public interface RequestDetailsDao {
     @Query("DELETE FROM requestdetails")
     void deleteALL();
 
-
+    @Query("SELECT * FROM requestdetails WHERE date > :date AND specialization = :specialization")
+    LiveData<List<RequestDetails>> getRequestsDetailsWithin15Days(long date, String specialization);
 }

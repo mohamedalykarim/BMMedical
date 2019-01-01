@@ -1,4 +1,6 @@
 <resources>
+    <string name="format">%1$tY\%1$tm\%1$td</string>
+
     <string name="app_name">BM Medical</string>
     <string name="action_login">تسجيل الدخول</string>
     <string name="password">كلمة المرور</string>
@@ -95,5 +97,17 @@
     <string name="employee_information">معلومات الموظف</string>
     <string name="benfituary_name_self">نفسه</string>
     <string name="sorry_you_have_an_exist_transformation_for_this_specialization_within_15_days">عفوا، لا يمكنك طلب هذا التحويل الان لان لديك طلب تحويل بالفعل لنفس التخصص خلال الخمس عشر يوم السابقة</string>
+    <string name="apply_filter">تطبيق</string>
+    <string name="hospitals">المستشفيات</string>
+    <string name="clinics">العيادات</string>
+    <string name="filter_by_type">الترشيج من خلال النوع:</string>
+    <string name="filter_by_specialization">الترشيح من خلال التخصص:</string>
+
+    <array name="specialization_type">
+        <item>كل التخصصات</item>
+        <item>العيون</item>
+        <item>العظام</item>
+    </array>
+
 
 </resources>

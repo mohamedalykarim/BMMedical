@@ -59,8 +59,7 @@ public class ApprovalsActivity extends AppCompatActivity {
         approvalRecyclerView.setNestedScrollingEnabled(false);
 
 
-        approvalMenuList.add(new MenuItem(getString(R.string.contractors),getString(R.string.contractors_desc),R.drawable.contractor_icon));
-        approvalMenuList.add(new MenuItem(getString(R.string.doc),getString(R.string.doc_desc),R.drawable.documentation_icon));
+        approvalMenuList.add(new MenuItem("",getString(R.string.contractors_desc),R.drawable.contractor_icon));
         approvalMenuAdapter.notifyDataSetChanged();
 
 

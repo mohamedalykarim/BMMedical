@@ -32,4 +32,13 @@ public interface EntityDao {
 
     @Query("SELECT * FROM entities WHERE id = :id")
     LiveData<MedicalEntity> getEntityByID(String id);
+
+    @Query("SELECT * FROM entities WHERE type = :type AND specialist = :specializationByPosition ORDER BY name ASC")
+    DataSource.Factory<Integer,MedicalEntity> getEntitiesByFilter1and2WithSpecialization(String type ,String specializationByPosition);
+
+    @Query("SELECT * FROM entities WHERE type = :type ORDER BY name ASC")
+    DataSource.Factory<Integer,MedicalEntity> getEntitiesByFilter1and2(String type);
+
+    @Query("SELECT * FROM entities WHERE specialist = :specializationByPosition ORDER BY name ASC")
+    DataSource.Factory<Integer,MedicalEntity> getEntitiesByFilter3(String specializationByPosition);
 }

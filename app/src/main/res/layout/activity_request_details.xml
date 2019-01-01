@@ -4,6 +4,8 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+
         <variable
             name="user"
             type="com.banquemisr.www.bmmedical.ui.login.model.User" />
@@ -334,6 +336,7 @@
                                 android:layout_marginEnd="8dp"
                                 android:background="@color/colorPrimary"
                                 android:padding="10dp"
+                                android:visibility="@{requestDetailsViewModel.isExistTransformation ? View.VISIBLE : View.GONE}"
                                 android:text="@string/sorry_you_have_an_exist_transformation_for_this_specialization_within_15_days"
                                 android:textColor="@color/da"
                                 android:textSize="12sp"
@@ -348,6 +351,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginEnd="8dp"
+                                android:visibility="@{requestDetailsViewModel.isExistTransformation ? View.GONE : View.VISIBLE}"
                                 android:onClick="@{()->requestDetailsViewModel.onAskForMedicalRequestClicked()}"
                                 android:text="@string/ask_for_medical_request"
                                 app:layout_constraintBottom_toBottomOf="parent"

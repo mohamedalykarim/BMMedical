@@ -9,30 +9,21 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 
-import com.banquemisr.www.bmmedical.Adapters.RequestsAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityRequestDetailsBinding;
-import com.banquemisr.www.bmmedical.databinding.NavMainBinding;
-import com.banquemisr.www.bmmedical.ui.MainScreen.MainScreenActivity;
 import com.banquemisr.www.bmmedical.ui.entity_location.EntityMapsActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
-import com.banquemisr.www.bmmedical.ui.requests.RequestViewModel;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
-import java.util.List;
 
 public class RequestDetailsActivity extends AppCompatActivity {
     private static final String ENTITY_ID = "entity_id";
@@ -101,11 +92,26 @@ public class RequestDetailsActivity extends AppCompatActivity {
                     startActivity(intent);
                 });
 
+
+                requestDetailsViewModel.getRequestsWithin15(entity.getSpecialist()).observe(this,existsRequests->{
+                    if(null != existsRequests){
+
+                        if(existsRequests.size() < 1){
+                            requestDetailsViewModel.isExistTransformation.setValue(false);
+                        }else {
+                            requestDetailsViewModel.isExistTransformation.setValue(true);
+                        }
+                    }
+                });
+
             });
 
             requestDetailsViewModel.pressAskForMedicalRequest.observe(this,pressed->{
                 askForRequestAlertDialog();
             });
+
+
+
 
         }
 

@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
+import android.util.Log;
 
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.data.AppRepository;
@@ -15,9 +16,12 @@ import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class RequestDetailsViewModel extends ViewModel {
     public LiveData<MedicalEntity> medicalEntity;
+    public LiveData<List<RequestDetails>> requestsWithin15;
+
     AppRepository appRepository;
     public  MutableLiveData<String> benfituaryName;
     public MutableLiveData<Boolean> isExistTransformation;
@@ -65,5 +69,10 @@ public class RequestDetailsViewModel extends ViewModel {
 
 
         appRepository.addTheMedicalRequest(requestDetails);
+    }
+
+    public LiveData<List<RequestDetails>> getRequestsWithin15(String specialization) {
+        return appRepository.getRequestsWithin15Days(specialization);
+
     }
 }

@@ -22,6 +22,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -158,21 +160,30 @@ public class NetworkDataHelper {
 
                         if(dataSnapshot.getChildrenCount() == 0){
 
-                            FirebaseUtils.provideRequestsReference().child(requestDetails.getOracle()+"").child(requestDetails.getId()).setValue(requestDetails)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-
-                                        }
-                                    });
+                            FirebaseUtils.provideRequestsReference().child(requestDetails.getOracle()+"")
+                                    .child(requestDetails.getId())
+                                    .setValue(requestDetails);
 
 
+                        }else{
+                            boolean isDateOk = true;
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(new Date());
+                            calendar.add(Calendar.DATE, -15);
+                            long dateBefore15 = calendar.getTimeInMillis();
+
+                            for (DataSnapshot child : dataSnapshot.getChildren()){
+                                long date = child.getValue(RequestDetails.class).getDate().getTime();
+                                if(date > dateBefore15){
+                                    isDateOk = false;
+                                }
+                            }
+
+                            if(isDateOk){
+                                FirebaseUtils.provideRequestsReference().child(requestDetails.getOracle()+"")
+                                        .child(requestDetails.getId())
+                                        .setValue(requestDetails);
+                            }
                         }
 
 

@@ -1,42 +1,36 @@
 package com.banquemisr.www.bmmedical.ui.requests;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.banquemisr.www.bmmedical.Adapters.EntityAdapter;
-import com.banquemisr.www.bmmedical.Adapters.RequestsAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityRequestsBinding;
-import com.banquemisr.www.bmmedical.databinding.NavMainBinding;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
+import com.banquemisr.www.bmmedical.utilities.FilterUtils;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
-import java.util.List;
 
 public class RequestsActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST = 1;
@@ -100,8 +94,23 @@ public class RequestsActivity extends AppCompatActivity {
 
         getOutifNotLogin();
         getUserDetails();
-        startListeningToMedicalEntities();
         startListeningtoSearch();
+        startListeningToMedicalEntities();
+
+
+
+
+        requestViewModel.filter.observe(this, filter -> {
+            if(null != filter){
+                requestViewModel.getMedicalEntitiesByFilter(FilterUtils.initQuery(filter), filter).observe(this,pagedList -> {
+                    entityRecyclerAdapter = null;
+                    entityRecyclerAdapter = new EntityAdapter(this);
+                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+                    entityRecyclerAdapter.submitList(pagedList);
+                });
+            }
+        });
+
 
     }
 
@@ -168,6 +177,15 @@ public class RequestsActivity extends AppCompatActivity {
 
 
 
+    void startFilterDialog(){
+        FilterDialog filterDialog = new FilterDialog(this,
+                android.R.style.Theme_Light_NoTitleBar_Fullscreen,
+                requestViewModel);
+        filterDialog.show();
+    }
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -193,7 +211,7 @@ public class RequestsActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.request_menu_filter:
-
+                startFilterDialog();
                 break;
 
 

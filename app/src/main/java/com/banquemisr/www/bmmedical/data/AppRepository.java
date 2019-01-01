@@ -2,16 +2,22 @@ package com.banquemisr.www.bmmedical.data;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.DataSource;
+import android.util.Log;
 
 import com.banquemisr.www.bmmedical.AppExecutor;
 import com.banquemisr.www.bmmedical.data.database.EntityDao;
 import com.banquemisr.www.bmmedical.data.database.RequestDetailsDao;
 import com.banquemisr.www.bmmedical.data.database.UserDao;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
+import com.banquemisr.www.bmmedical.ui.requests.model.Filter;
 import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
+import com.banquemisr.www.bmmedical.utilities.FilterUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AppRepository {
@@ -125,6 +131,41 @@ public class AppRepository {
         return entityDao.getEntitiesBySearch("%"+searchText+"%");
     }
 
+    public DataSource.Factory<Integer,MedicalEntity> getEntitiesByFilter(String filterType, Filter filter) {
+        if(filterType.equals(FilterUtils.FILTER_TYPE_1)){
+            if(filter.getSpecialization() != 0){
+                return entityDao.getEntitiesByFilter1and2WithSpecialization(
+                        "clinic",
+                        FilterUtils.getSpecializationByPosition(filter.getSpecialization())
+                );
+            }else {
+                return entityDao.getEntitiesByFilter1and2(
+                        "clinic"
+                );
+            }
+        }else if(filterType.equals(FilterUtils.FILTER_TYPE_2)){
+            if(filter.getSpecialization() != 0){
+                return entityDao.getEntitiesByFilter1and2WithSpecialization(
+                        "hospital",
+                        FilterUtils.getSpecializationByPosition(filter.getSpecialization())
+                );
+            }else {
+                return entityDao.getEntitiesByFilter1and2(
+                        "hospital"
+                );
+            }
+        }else if(filterType.equals(FilterUtils.FILTER_TYPE_3)){
+            if(filter.getSpecialization() != 0){
+                return entityDao.getEntitiesByFilter3(
+                        FilterUtils.getSpecializationByPosition(filter.getSpecialization())
+                );
+            }else {
+                return entityDao.getEntities();
+            }
+        }
+        return null;
+    }
+
     public LiveData<MedicalEntity> getEntityById(String id){
         return entityDao.getEntityByID(id);
     }
@@ -160,13 +201,18 @@ public class AppRepository {
         return requestDetailsDao.getRequstDetailsById(id);
     }
 
+    public LiveData<List<RequestDetails>> getRequestsWithin15Days(String specialization) {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, -15);
+        long dateBefore15 = calendar.getTimeInMillis();
+        return  requestDetailsDao.getRequestsDetailsWithin15Days(dateBefore15, specialization);
+    }
 
 
-    private void initializeRequestsDetails(String oracle) {
-        mExecutors.diskIO().execute(()->{
-            requestDetailsDao.deleteALL();
-        });
 
+    public void initializeRequestsDetails(String oracle) {
         startFetchRequestDetailsService(oracle);
     }
 
@@ -174,4 +220,8 @@ public class AppRepository {
         networkDataHelper.startFetchRequestDetailsService(oracle);
     }
 
+
+    public void deleteAllRequests() {
+        requestDetailsDao.deleteALL();
+    }
 }

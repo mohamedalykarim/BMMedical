@@ -68,4 +68,16 @@
     <string name="employee_information">Employee Information</string>
     <string name="benfituary_name_self">Self</string>
     <string name="sorry_you_have_an_exist_transformation_for_this_specialization_within_15_days">Sorry, you have an exist transformation for this specialization within 15 days</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="hospitals">Hospitals</string>
+    <string name="clinics">Clinics</string>
+    <string name="filter_by_type">Filter By Type:</string>
+    <string name="filter_by_specialization">Filter By Specialization:</string>
+
+    <array name="specialization_type">
+        <item>All</item>
+        <item>Eye</item>
+        <item>Bone</item>
+    </array>
+
 </resources>

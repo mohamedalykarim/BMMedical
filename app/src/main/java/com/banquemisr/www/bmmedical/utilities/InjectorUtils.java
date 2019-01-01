@@ -6,6 +6,8 @@ import com.banquemisr.www.bmmedical.AppExecutor;
 import com.banquemisr.www.bmmedical.data.AppRepository;
 import com.banquemisr.www.bmmedical.data.NetworkDataHelper;
 import com.banquemisr.www.bmmedical.data.database.BMMedicalDatabase;
+import com.banquemisr.www.bmmedical.ui.Splash.SplashVMFactory;
+import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.ui.request_details.RequestDetailsViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.requests.RequestViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
@@ -27,6 +29,15 @@ public class InjectorUtils {
     public static NetworkDataHelper provideNetworkDataHelper(Context context) {
         return NetworkDataHelper.getInstance(context.getApplicationContext());
     }
+
+
+
+    public static SplashVMFactory provideLSplashVMFactory(Context context, User user){
+        AppRepository appRepository = InjectorUtils.provideRepository(context);
+        return new SplashVMFactory(appRepository, user);
+    }
+
+
 
     public static LoginViewModelFactory provideLoginViewModelFactory(Context context){
         AppRepository appRepository = InjectorUtils.provideRepository(context);

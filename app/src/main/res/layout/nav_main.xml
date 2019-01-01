@@ -153,6 +153,7 @@
         </FrameLayout>
 
         <LinearLayout
+            android:visibility="@{loginViewModel.login.isLogged() ? View.VISIBLE : View.GONE}"
             android:orientation="vertical"
             android:id="@+id/requests_list"
             android:layout_width="match_parent"

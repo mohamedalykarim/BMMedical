@@ -65,6 +65,7 @@ public class RequestsActivity extends AppCompatActivity {
         entityRecyclerAdapter = new EntityAdapter(this);
         entityRecyclerView = binding.entityRecyclerView;
         entityLayoutManager = new LinearLayoutManager(this);
+        entityRecyclerView.setHasFixedSize(true);
 
         entityRecyclerView.setLayoutManager(entityLayoutManager);
         entityRecyclerView.setAdapter(entityRecyclerAdapter);

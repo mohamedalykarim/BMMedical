@@ -80,6 +80,12 @@ public class RequestDetailsActivity extends AppCompatActivity {
             requestDetailsViewModel.medicalEntity.observe(this, entity->{
                 binding.setMedicalEntity(entity);
 
+                if(entity.getType().equals("hospital")){
+                    binding.requestTypeImage.setImageResource(R.drawable.hospital_icon);
+                }else if(entity.getType().equals("clinic")){
+                    binding.requestTypeImage.setImageResource(R.drawable.clinic_icon);
+                }
+
                 if(null != entity)
                 getSupportActionBar().setTitle(entity.getName());
 

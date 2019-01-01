@@ -23,6 +23,8 @@ public class FilterUtils {
             return "Eye";
         }else if(position == 2){
             return "Bone";
+        }else if(position == 3){
+            return "اطفال";
         }
         return "";
     }

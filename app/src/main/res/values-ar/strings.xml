@@ -65,6 +65,7 @@
     <string name="phone">رقم التليفون:</string>
     <string name="address">العنوان:</string>
     <string name="doctor">اسم الدكتور:</string>
+    <string name="hospital">مستشفى</string>
     <string name="sorry_you_have_to_login_before_you_can_see_the_content">عذرا، يجب عليك تسجيل الدخول حتى تتمكن من عرض المحتوى</string>
     <string name="ask_for_medical_request">طلب خدمة طبية</string>
     <string name="ask_for_medical_request_title_alert">طلب خدمة طبية!</string>
@@ -107,6 +108,7 @@
         <item>كل التخصصات</item>
         <item>العيون</item>
         <item>العظام</item>
+        <item>اطفال</item>
     </array>
 
 

@@ -103,6 +103,23 @@
     <string name="clinics">العيادات</string>
     <string name="filter_by_type">الترشيج من خلال النوع:</string>
     <string name="filter_by_specialization">الترشيح من خلال التخصص:</string>
+    <string name="medical_analysis_title">طلب موافقة تحاليل طبية</string>
+    <string name="medical_rays_title">طلب موافقة اشعة</string>
+    <string name="physical_therapy_title">طلب موافقة علاج طبيعي</string>
+    <string name="dental_approval_title">طلب موافقة اسنان</string>
+    <string name="hospitalization_non_title">طلب حجز بالمستشفى لاسباب غير جراحية</string>
+    <string name="hospitalization_title">طلب الحجز بالمستشفى لاسباب جراحية</string>
+    <string name="chemotherapy_title">طلب علاج كيماوى أو أشعاعي</string>
+    <string name="others_approval_title">طلب الموافقات الاخري</string>
+    <string name="medical_analysis_desc">طلب الموافقة للتحاليل الطبية</string>
+    <string name="medical_rays_desc">طلب الموافقة على الاشعة</string>
+    <string name="physical_therapy_desc">طلب الموافقة على علاج طبيعي</string>
+    <string name="dental_approval_desc">طلب الموافقة للاسنان</string>
+    <string name="hospitalization_non_desc">طلب الموافقة للحجز لاسباب غير جراحية</string>
+    <string name="hospitalization_desc">طلب الموافقة للحجز لاسباب جراحية</string>
+    <string name="chemotherapy_desc">طلب الموافقة للعلاج الكيماوى أو الاشعاعي</string>
+    <string name="others_approval_desc">طلب الموافقات الاخري</string>
+
 
     <array name="specialization_type">
         <item>كل التخصصات</item>

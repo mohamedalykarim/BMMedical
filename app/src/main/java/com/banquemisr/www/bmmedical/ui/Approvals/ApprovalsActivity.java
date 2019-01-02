@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.banquemisr.www.bmmedical.Adapters.MenuAdapter;
 import com.banquemisr.www.bmmedical.R;
@@ -19,6 +21,8 @@ import com.banquemisr.www.bmmedical.ui.Informations.InformationsActivty;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
+import com.banquemisr.www.bmmedical.ui.transaction.TransactionDetailsActivity;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
@@ -27,6 +31,7 @@ import java.util.List;
 
 public class ApprovalsActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST = 1;
+    private static final String MY_REQUEST_ID = "my_request_id";
     ActivityApprovalsBinding binding;
     LoginViewModel loginViewModel;
 
@@ -59,7 +64,14 @@ public class ApprovalsActivity extends AppCompatActivity {
         approvalRecyclerView.setNestedScrollingEnabled(false);
 
 
-        approvalMenuList.add(new MenuItem("",getString(R.string.contractors_desc),R.drawable.contractor_icon));
+        approvalMenuList.add(new MenuItem(getString(R.string.medical_analysis_title),getString(R.string.medical_analysis_desc),R.drawable.medical_analysis_icon));
+        approvalMenuList.add(new MenuItem(getString(R.string.medical_rays_title),getString(R.string.medical_rays_desc),R.drawable.medical_rays_icon));
+        approvalMenuList.add(new MenuItem(getString(R.string.physical_therapy_title),getString(R.string.physical_therapy_desc),R.drawable.physical_therapy_icon));
+        approvalMenuList.add(new MenuItem(getString(R.string.dental_approval_title),getString(R.string.dental_approval_desc),R.drawable.dental));
+        approvalMenuList.add(new MenuItem(getString(R.string.hospitalization_non_title),getString(R.string.hospitalization_non_desc),R.drawable.hospitalization_icon));
+        approvalMenuList.add(new MenuItem(getString(R.string.hospitalization_title),getString(R.string.hospitalization_desc),R.drawable.hospitalizaton2_icon));
+        approvalMenuList.add(new MenuItem(getString(R.string.chemotherapy_title),getString(R.string.chemotherapy_desc),R.drawable.chemotherapy_icon));
+        approvalMenuList.add(new MenuItem(getString(R.string.others_approval_title),getString(R.string.others_approval_desc),R.drawable.other_medical_icon));
         approvalMenuAdapter.notifyDataSetChanged();
 
 
@@ -94,6 +106,49 @@ public class ApprovalsActivity extends AppCompatActivity {
     void getUserDetails(){
         loginViewModel.getUser().observe(this, newUser->{
             binding.setUser(newUser);
+
+            // Requests Details of the current user
+            if(null != newUser){
+                loginViewModel.getRequest(newUser.getOracle()+"")
+                        .observe(this, requests->{
+                            binding.navMain.requestsList.removeAllViews();
+
+                            for (RequestDetails requestDetails: requests){
+                                View view = getLayoutInflater().inflate(R.layout.row_request_list_item,null,false);
+                                TextView name = view.findViewById(R.id.name_tv);
+                                ImageView image = view.findViewById(R.id.image);
+                                name.setText(getResources().getString(R.string.medical_request_title)+requestDetails.getName());
+
+                                loginViewModel.getEntityById(requestDetails.getContractorId())
+                                        .observe(this, entity->{
+
+                                            if(null != entity){
+                                                if(entity.getType().equals("hospital")){
+                                                    image.setImageResource(R.drawable.hospital_icon);
+                                                }else if(entity.getType().equals("clinic")){
+                                                    image.setImageResource(R.drawable.clinic_icon);
+                                                }
+                                            }
+
+                                        });
+
+
+                                view.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(ApprovalsActivity.this,TransactionDetailsActivity.class);
+                                        intent.putExtra(MY_REQUEST_ID, requestDetails.getId());
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                binding.navMain.requestsList.addView(view);
+                            }
+                        });
+            }
+
+
+
         });
     }
 

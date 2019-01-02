@@ -18,15 +18,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.banquemisr.www.bmmedical.Adapters.EntityAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityRequestsBinding;
+import com.banquemisr.www.bmmedical.ui.MainScreen.MainScreenActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
+import com.banquemisr.www.bmmedical.ui.transaction.TransactionDetailsActivity;
 import com.banquemisr.www.bmmedical.utilities.FilterUtils;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
@@ -34,6 +38,7 @@ import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
 public class RequestsActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST = 1;
+    private static final String MY_REQUEST_ID = "my_request_id";
     ActivityRequestsBinding binding;
     RequestViewModel requestViewModel;
     LoginViewModel loginViewModel;
@@ -137,9 +142,37 @@ public class RequestsActivity extends AppCompatActivity {
             if(null != newUser){
                 loginViewModel.getRequest(newUser.getOracle()+"")
                         .observe(this, requests->{
+                            binding.navMain.requestsList.removeAllViews();
 
                             for (RequestDetails requestDetails: requests){
                                 View view = getLayoutInflater().inflate(R.layout.row_request_list_item,null,false);
+                                TextView name = view.findViewById(R.id.name_tv);
+                                ImageView image = view.findViewById(R.id.image);
+                                name.setText(getResources().getString(R.string.medical_request_title)+requestDetails.getName());
+
+                                loginViewModel.getEntityById(requestDetails.getContractorId())
+                                        .observe(this, entity->{
+
+                                            if(null != entity){
+                                                if(entity.getType().equals("hospital")){
+                                                    image.setImageResource(R.drawable.hospital_icon);
+                                                }else if(entity.getType().equals("clinic")){
+                                                    image.setImageResource(R.drawable.clinic_icon);
+                                                }
+                                            }
+
+                                        });
+
+
+                                view.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(RequestsActivity.this,TransactionDetailsActivity.class);
+                                        intent.putExtra(MY_REQUEST_ID, requestDetails.getId());
+                                        startActivity(intent);
+                                    }
+                                });
+
                                 binding.navMain.requestsList.addView(view);
                             }
                         });

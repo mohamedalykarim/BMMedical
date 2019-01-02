@@ -73,6 +73,22 @@
     <string name="clinics">Clinics</string>
     <string name="filter_by_type">Filter By Type:</string>
     <string name="filter_by_specialization">Filter By Specialization:</string>
+    <string name="medical_analysis_title">Medical Analysis Approval</string>
+    <string name="medical_rays_title">Medical Rays Approval</string>
+    <string name="physical_therapy_title">Physical Therapy Approval</string>
+    <string name="dental_approval_title">Dental Approval</string>
+    <string name="hospitalization_non_title">Hospitalization For Non-surgical Reasons</string>
+    <string name="hospitalization_title">Hospitalization For Surgical Reasons</string>
+    <string name="chemotherapy_title">Chemotherapy And Radiotherapy</string>
+    <string name="others_approval_title">Others Approval</string>
+    <string name="medical_analysis_desc">Approvals for medical analysis</string>
+    <string name="medical_rays_desc">Approvals for medical rays</string>
+    <string name="physical_therapy_desc">Approvals for physical therapy</string>
+    <string name="dental_approval_desc">Approvals for dental</string>
+    <string name="hospitalization_non_desc">Approvals for Hospitalization for non-surgical reasons</string>
+    <string name="hospitalization_desc">Approvals for Hospitalization for surgical reasons</string>
+    <string name="chemotherapy_desc">Approvals for chemotherapy and radiotherapy</string>
+    <string name="others_approval_desc">Approvals for Others medical status</string>
 
     <array name="specialization_type">
         <item>All</item>

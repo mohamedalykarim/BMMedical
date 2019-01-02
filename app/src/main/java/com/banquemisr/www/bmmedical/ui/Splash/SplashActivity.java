@@ -63,9 +63,10 @@ public class SplashActivity extends AppCompatActivity {
 
     void getUserDetails(){
         loginViewModel.getUser().observe(this, newUser->{
-            SplashVMFactory splashVMFactory = InjectorUtils.provideLSplashVMFactory(this,newUser);
-            splashViewModel = ViewModelProviders.of(this,splashVMFactory).get(SplashViewModel.class);
-
+            if(null != newUser){
+                SplashVMFactory splashVMFactory = InjectorUtils.provideLSplashVMFactory(this,newUser);
+                splashViewModel = ViewModelProviders.of(this,splashVMFactory).get(SplashViewModel.class);
+            }
 
         });
     }

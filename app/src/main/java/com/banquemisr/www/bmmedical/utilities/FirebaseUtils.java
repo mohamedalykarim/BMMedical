@@ -3,6 +3,8 @@ package com.banquemisr.www.bmmedical.utilities;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class FirebaseUtils {
 
@@ -24,5 +26,13 @@ public class FirebaseUtils {
 
     public static DatabaseReference provideRequestsReference(){
         return FirebaseDatabase.getInstance().getReference("requests");
+    }
+
+    public static DatabaseReference provideApprovalsReference(){
+        return FirebaseDatabase.getInstance().getReference("approvals");
+    }
+
+    public static StorageReference provideImageStorageReference(String oracle){
+        return FirebaseStorage.getInstance().getReference().child("images").child(oracle);
     }
 }

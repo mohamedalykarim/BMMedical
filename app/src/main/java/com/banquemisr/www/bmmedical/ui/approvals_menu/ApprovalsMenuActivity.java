@@ -1,4 +1,4 @@
-package com.banquemisr.www.bmmedical.ui.Approvals;
+package com.banquemisr.www.bmmedical.ui.approvals_menu;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -17,7 +17,6 @@ import com.banquemisr.www.bmmedical.Adapters.MenuAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.data.model.MenuItem;
 import com.banquemisr.www.bmmedical.databinding.ActivityApprovalsBinding;
-import com.banquemisr.www.bmmedical.ui.Informations.InformationsActivty;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
@@ -29,7 +28,7 @@ import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApprovalsActivity extends AppCompatActivity {
+public class ApprovalsMenuActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST = 1;
     private static final String MY_REQUEST_ID = "my_request_id";
     ActivityApprovalsBinding binding;
@@ -95,7 +94,7 @@ public class ApprovalsActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 if(aBoolean){
-                    startActivityForResult(new Intent(ApprovalsActivity.this, LoginActivity.class), LOGIN_REQUEST);
+                    startActivityForResult(new Intent(ApprovalsMenuActivity.this, LoginActivity.class), LOGIN_REQUEST);
                 }
             }
         });
@@ -136,7 +135,7 @@ public class ApprovalsActivity extends AppCompatActivity {
                                 view.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent intent = new Intent(ApprovalsActivity.this,TransactionDetailsActivity.class);
+                                        Intent intent = new Intent(ApprovalsMenuActivity.this,TransactionDetailsActivity.class);
                                         intent.putExtra(MY_REQUEST_ID, requestDetails.getId());
                                         startActivity(intent);
                                     }

@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.data.model.MenuItem;
-import com.banquemisr.www.bmmedical.ui.Approvals.ApprovalsActivity;
+import com.banquemisr.www.bmmedical.ui.approvals_menu.ApprovalsMenuActivity;
 import com.banquemisr.www.bmmedical.ui.Informations.InformationsActivty;
+import com.banquemisr.www.bmmedical.ui.show_approvals.ShowApprovalsActivity;
 import com.banquemisr.www.bmmedical.ui.requests.RequestsActivity;
 import com.banquemisr.www.bmmedical.databinding.RowMenuItemBinding;
 import com.squareup.picasso.Picasso;
@@ -21,6 +23,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     private static final String MAIN_MENU_TYPE = "main_menu_type";
     private static final String INFORMATION_MENU_TYPE = "information_menu_type";
     private static final String APPROVAL_MENU_TYPE = "approval_menu_type";
+
+
+
+    private static final String APPROVAL_TYPE = "approval_type";
 
 
     List<MenuItem> menuItems;
@@ -66,7 +72,58 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                             break;
 
                         default:
-                            intent =  new Intent(context, ApprovalsActivity.class);
+                            intent =  new Intent(context, ApprovalsMenuActivity.class);
+                            break;
+                    }
+                    context.startActivity(intent);
+                }else if(adapterType.equals(APPROVAL_MENU_TYPE)){
+
+                    final Intent intent;
+
+                    switch (i){
+                        case 0:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.medical_analysis_title));
+                            break;
+
+                        case 1:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.medical_rays_title));
+                            break;
+
+                        case 2:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.physical_therapy_title));
+                            break;
+
+                        case 3:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.dental_approval_title));
+                            break;
+
+                        case 4:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.hospitalization_non_title));
+                            break;
+
+                        case 5:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.hospitalization_title));
+                            break;
+
+                        case 6:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.chemotherapy_title));
+                            break;
+
+                        case 7:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
+                            intent.putExtra(APPROVAL_TYPE,context.getResources().getString(R.string.others_approval_title));
+                            break;
+
+
+                        default:
+                            intent =  new Intent(context, ShowApprovalsActivity.class);
                             break;
                     }
                     context.startActivity(intent);

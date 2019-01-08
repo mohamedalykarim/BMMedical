@@ -9,9 +9,18 @@ import android.content.Context;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
+import com.banquemisr.www.bmmedical.ui.show_approvals.model.Approval;
 
 
-@Database(entities = {User.class, MedicalEntity.class, RequestDetails.class}, version = 1)
+@Database(
+        entities = {
+                User.class,
+                MedicalEntity.class,
+                RequestDetails.class,
+                Approval.class
+        },
+
+        version = 1)
 @TypeConverters({DateTypeConverter.class})
 public abstract class BMMedicalDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "com.banquemisr.www.bmmedical";
@@ -32,5 +41,6 @@ public abstract class BMMedicalDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract EntityDao entityDao();
     public abstract RequestDetailsDao requestDetailsDao();
+    public abstract ApprovalsDao approvalsDao();
 
 }

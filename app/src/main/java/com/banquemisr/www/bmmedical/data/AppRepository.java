@@ -1,10 +1,13 @@
 package com.banquemisr.www.bmmedical.data;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.paging.DataSource;
+import android.net.Uri;
 import android.util.Log;
 
 import com.banquemisr.www.bmmedical.AppExecutor;
+import com.banquemisr.www.bmmedical.data.database.ApprovalsDao;
 import com.banquemisr.www.bmmedical.data.database.EntityDao;
 import com.banquemisr.www.bmmedical.data.database.RequestDetailsDao;
 import com.banquemisr.www.bmmedical.data.database.UserDao;
@@ -12,10 +15,12 @@ import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.ui.requests.model.Filter;
 import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
+import com.banquemisr.www.bmmedical.ui.show_approvals.model.Approval;
 import com.banquemisr.www.bmmedical.utilities.FilterUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,16 +32,19 @@ public class AppRepository {
     UserDao userDao;
     EntityDao entityDao;
     RequestDetailsDao requestDetailsDao;
+    ApprovalsDao approvalsDao;
     LiveData<User> user;
 
     NetworkDataHelper networkDataHelper;
 
-    private AppRepository(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao, RequestDetailsDao requestDetailsDao, NetworkDataHelper networkDataHelper){
+    private AppRepository(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao,
+                          RequestDetailsDao requestDetailsDao, ApprovalsDao approvalsDao, NetworkDataHelper networkDataHelper){
         mExecutors = appExecutor;
         this.userDao = userDao;
         this.entityDao = entityDao;
         this.requestDetailsDao = requestDetailsDao;
         this.networkDataHelper = networkDataHelper;
+        this.approvalsDao = approvalsDao;
 
         user = userDao.getUser();
 
@@ -64,7 +72,29 @@ public class AppRepository {
             });
         });
 
+        this.networkDataHelper.approvalsRequests.observeForever(approvals -> {
+            appExecutor.diskIO().execute(()->{
+                approvalsDao.bulkInsert(approvals);
+            });
 
+        });
+
+    }
+
+    public synchronized static AppRepository getsInstance(
+            AppExecutor appExecutor,
+            UserDao userDao,
+            EntityDao entityDao,
+            RequestDetailsDao requestDetailsDao,
+            ApprovalsDao approvalsDao,
+            NetworkDataHelper networkDataHelper){
+        if (sInstance == null) {
+            synchronized (LOCK) {
+                sInstance = new AppRepository(appExecutor,userDao, entityDao,
+                        requestDetailsDao, approvalsDao, networkDataHelper);
+            }
+        }
+        return sInstance;
     }
 
 
@@ -75,14 +105,7 @@ public class AppRepository {
                                       User
     /*****************************************************************************/
 
-    public synchronized static AppRepository getsInstance(AppExecutor appExecutor, UserDao userDao, EntityDao entityDao, RequestDetailsDao requestDetailsDao, NetworkDataHelper networkDataHelper){
-        if (sInstance == null) {
-            synchronized (LOCK) {
-                sInstance = new AppRepository(appExecutor,userDao, entityDao, requestDetailsDao, networkDataHelper);
-            }
-        }
-        return sInstance;
-    }
+
 
 
     public LiveData<User> getUserByOracle(int oracle) {
@@ -224,4 +247,24 @@ public class AppRepository {
     public void deleteAllRequests() {
         requestDetailsDao.deleteALL();
     }
+
+    /*****************************************************************************
+                                    Approvals
+     /*****************************************************************************/
+
+    public void startAddTheApprovalRequest(Approval approval, ArrayList<Uri> uris, String oracle) {
+        networkDataHelper.startaddingTheApprovalRequest(approval,uris, oracle);
+    }
+
+    public void startFetchApprovals(String oracle){
+        networkDataHelper.startFetchApprovalRequestsData(oracle);
+    }
+
+    public LiveData<List<Approval>> getApprovalsRequests(String oracle){
+        startFetchApprovals(oracle);
+       return approvalsDao.getApprovals();
+
+    }
+
+
 }

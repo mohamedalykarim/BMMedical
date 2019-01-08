@@ -11,6 +11,7 @@ import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.ui.request_details.RequestDetailsViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.requests.RequestViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.show_approvals.ShowApprovalsVHFactory;
 import com.banquemisr.www.bmmedical.ui.transaction.TransactionDetailsVmFactory;
 
 public class InjectorUtils {
@@ -19,7 +20,13 @@ public class InjectorUtils {
         AppExecutor appExecutor = AppExecutor.getInstance();
         BMMedicalDatabase bmMedicalDatabase = BMMedicalDatabase.getsInstance(context);
         NetworkDataHelper networkDataHelper = NetworkDataHelper.getInstance(context);
-        return AppRepository.getsInstance(appExecutor,bmMedicalDatabase.userDao(), bmMedicalDatabase.entityDao(), bmMedicalDatabase.requestDetailsDao(), networkDataHelper);
+        return AppRepository.getsInstance(
+                appExecutor,
+                bmMedicalDatabase.userDao(),
+                bmMedicalDatabase.entityDao(),
+                bmMedicalDatabase.requestDetailsDao(),
+                bmMedicalDatabase.approvalsDao(),
+                networkDataHelper);
     }
 
     public static AppExecutor provideAppExecuter(){
@@ -30,14 +37,10 @@ public class InjectorUtils {
         return NetworkDataHelper.getInstance(context.getApplicationContext());
     }
 
-
-
     public static SplashVMFactory provideLSplashVMFactory(Context context, User user){
         AppRepository appRepository = InjectorUtils.provideRepository(context);
         return new SplashVMFactory(appRepository, user);
     }
-
-
 
     public static LoginViewModelFactory provideLoginViewModelFactory(Context context){
         AppRepository appRepository = InjectorUtils.provideRepository(context);
@@ -57,6 +60,11 @@ public class InjectorUtils {
     public static RequestDetailsViewModelFactory provideRequestDetailViewModelFactory(Context context, String id){
         AppRepository appRepository = InjectorUtils.provideRepository(context);
         return new RequestDetailsViewModelFactory(appRepository, id);
+    }
+
+    public static ShowApprovalsVHFactory provideShowApprovalVMFactory(Context context, String oracle){
+        AppRepository appRepository = InjectorUtils.provideRepository(context);
+        return new ShowApprovalsVHFactory(appRepository, oracle);
     }
 
     public static BMMedicalDatabase getBMMedicalDatabase(Context context){

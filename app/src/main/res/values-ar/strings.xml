@@ -119,6 +119,9 @@
     <string name="hospitalization_desc">طلب الموافقة للحجز لاسباب جراحية</string>
     <string name="chemotherapy_desc">طلب الموافقة للعلاج الكيماوى أو الاشعاعي</string>
     <string name="others_approval_desc">طلب الموافقات الاخري</string>
+    <string name="add_the_request">اضافة الطلب</string>
+    <string name="attach_images">اضافة مرفقات</string>
+    <string name="add_new_request">اضافة طلب جديد</string>
 
 
     <array name="specialization_type">

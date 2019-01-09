@@ -1,6 +1,5 @@
 package com.banquemisr.www.bmmedical.ui.show_approvals;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.Intent;
@@ -9,28 +8,31 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.banquemisr.www.bmmedical.Adapters.ApprovalsAdapter;
 import com.banquemisr.www.bmmedical.Adapters.ImagedAttachedAdapter;
 import com.banquemisr.www.bmmedical.R;
-import com.banquemisr.www.bmmedical.databinding.ActivityNewApprovalBinding;
+import com.banquemisr.www.bmmedical.databinding.ActivityShowApprovalBinding;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShowApprovalsActivity extends AppCompatActivity {
     private static final String APPROVAL_TYPE = "approval_type";
     private static final int CHOOSE_IMAGE_CODE = 1;
 
-    ActivityNewApprovalBinding binding;
+    ActivityShowApprovalBinding binding;
     private ShowApprovalsVH showApprovalsVM;
     GridView attachmentGridView;
     ListView approvalListView;
@@ -41,13 +43,22 @@ public class ShowApprovalsActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_new_approval);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_show_approval);
         binding.setLifecycleOwner(this);
 
         Intent oldIntent = getIntent();
         if(null != oldIntent){
             if(oldIntent.hasExtra(APPROVAL_TYPE)){
 
+
+                Toolbar toolbar = binding.toolbar;
+                toolbar.setTitleTextColor(getResources().getColor(R.color.da));
+                setSupportActionBar(toolbar);
+                getSupportActionBar().setTitle(oldIntent.getStringExtra(APPROVAL_TYPE));
+
+
+                ImageView noApprovalsImageview = binding.approvalImage;
+                TextView noApprovalsTV = binding.noApprovalTv;
 
 
 
@@ -93,21 +104,28 @@ public class ShowApprovalsActivity extends AppCompatActivity {
 
                             if(null != showApprovalsVM.getUris().getValue()){
                                 showApprovalsVM.startAddApprovalRequest(
-                                        user.getOracle() + "",
                                         oldIntent.getStringExtra(APPROVAL_TYPE),
                                         this
                                 );
 
                                 showApprovalsVM.getUris().getValue().clear();
                             }else {
-                                Toast.makeText(this, "Error: You must choose your attachment image first", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "You must choose your attachment image first", Toast.LENGTH_SHORT).show();
                             }
 
                         });
 
 
 
-                        showApprovalsVM.getApprovals(user.getOracle()+"").observe(this, approvals -> {
+                        showApprovalsVM.getApprovals().observe(this, approvals -> {
+                            if(approvals.size() < 1){
+                                noApprovalsImageview.setVisibility(View.VISIBLE);
+                                noApprovalsTV.setVisibility(View.VISIBLE);
+                            }else{
+                                noApprovalsImageview.setVisibility(View.INVISIBLE);
+                                noApprovalsTV.setVisibility(View.INVISIBLE);
+                            }
+
                             ApprovalsAdapter approvalsAdapter = new ApprovalsAdapter(this,approvals);
                             approvalListView.setAdapter(approvalsAdapter);
                         });
@@ -121,6 +139,8 @@ public class ShowApprovalsActivity extends AppCompatActivity {
 
 
             }
+        }else{
+            finish();
         }
 
 
@@ -174,4 +194,6 @@ public class ShowApprovalsActivity extends AppCompatActivity {
             loginViewModel.login.setLoginPressedEvent(false);
         }
     }
+
+
 }

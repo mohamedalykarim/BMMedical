@@ -19,6 +19,7 @@ public class ShowApprovalsVH extends ViewModel {
     AppRepository appRepository;
     MutableLiveData<ArrayList<Uri>> uris;
     LiveData<List<Approval>> approvals;
+    String oracle;
 
     MutableLiveData<Boolean> startAttachEvent, startAddRequstEvent;
 
@@ -27,10 +28,11 @@ public class ShowApprovalsVH extends ViewModel {
         startAttachEvent = new MutableLiveData<>();
         startAddRequstEvent = new MutableLiveData<>();
         uris = new MutableLiveData<>();
+        this.oracle = oracle;
     }
 
 
-    public void startAddApprovalRequest(String oracle, String type, Context context){
+    public void startAddApprovalRequest(String type, Context context){
         if(uris.getValue().size()>0){
             Approval approval = new Approval();
             approval.setDate(new Date());
@@ -90,7 +92,7 @@ public class ShowApprovalsVH extends ViewModel {
      * Handling approvals
      */
 
-    public LiveData<List<Approval>> getApprovals(String oracle) {
+    public LiveData<List<Approval>> getApprovals() {
         return appRepository.getApprovalsRequests(oracle);
     }
 

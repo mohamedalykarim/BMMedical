@@ -89,6 +89,9 @@
     <string name="hospitalization_desc">Approvals for Hospitalization for surgical reasons</string>
     <string name="chemotherapy_desc">Approvals for chemotherapy and radiotherapy</string>
     <string name="others_approval_desc">Approvals for Others medical status</string>
+    <string name="add_the_request">Add the Request</string>
+    <string name="attach_images">Attach Images</string>
+    <string name="add_new_request">Add New Request</string>
 
     <array name="specialization_type">
         <item>All</item>

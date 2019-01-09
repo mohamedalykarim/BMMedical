@@ -21,4 +21,6 @@ public interface ApprovalsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void bulkInsert(List<Approval> approvals);
 
+    @Query("DELETE FROM approval")
+    void deleteALL();
 }

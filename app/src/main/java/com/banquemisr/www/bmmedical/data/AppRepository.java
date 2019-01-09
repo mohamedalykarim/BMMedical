@@ -263,7 +263,12 @@ public class AppRepository {
     public LiveData<List<Approval>> getApprovalsRequests(String oracle){
         startFetchApprovals(oracle);
        return approvalsDao.getApprovals();
+    }
 
+    public void deleteAllApprovalRequests(){
+        mExecutors.diskIO().execute(()->{
+            approvalsDao.deleteALL();
+        });
     }
 
 

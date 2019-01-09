@@ -12,6 +12,7 @@ public class SplashViewModel extends ViewModel {
     public SplashViewModel(AppRepository appRepository, User user) {
         this.appRepository = appRepository;
         InjectorUtils.provideAppExecuter().diskIO().execute(()->{
+            appRepository.deleteAllApprovalRequests();
             appRepository.deleteAllRequests();
             appRepository.initializeRequestsDetails(user.getOracle()+"");
         });

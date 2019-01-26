@@ -18,6 +18,10 @@
             name="loginViewModel"
             type="com.banquemisr.www.bmmedical.ui.login.LoginViewModel"/>
 
+        <variable
+            name="approval"
+            type="com.banquemisr.www.bmmedical.ui.show_approvals.model.Approval"/>
+
 
     </data>
 
@@ -90,11 +94,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="8dp"
-                                android:text=""
+                                android:text="@{approval.status}"
+                                android:textAlignment="center"
                                 android:textColor="@color/blue_transparent"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textAlignment="viewStart"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
@@ -116,10 +120,10 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/phone_icon" />
+                                app:srcCompat="@drawable/type_icon" />
 
                             <TextView
-                                android:id="@+id/phone"
+                                android:id="@+id/type_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -151,17 +155,17 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/address_icon" />
+                                app:srcCompat="@drawable/date_icon" />
 
                             <TextView
-                                android:id="@+id/address"
+                                android:id="@+id/date_tv"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginBottom="8dp"
-                                android:text=""
+                                android:text="@{@string/format(approval.date)}"
                                 android:textColor="@color/black_light_font_color"
                                 android:textSize="12sp"
                                 android:textAlignment="viewStart"
@@ -172,147 +176,13 @@
 
                         </android.support.constraint.ConstraintLayout>
 
-                        <android.support.constraint.ConstraintLayout
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/attached_images"
                             android:layout_width="match_parent"
-                            android:layout_height="30dp">
+                            android:layout_height="80dp"
+                            android:layout_marginTop="20dp">
 
-                            <ImageView
-                                android:id="@+id/imageView19"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginBottom="8dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/doctor_icon" />
-
-                            <TextView
-                                android:id="@+id/doctor"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="8dp"
-                                android:text=""
-                                android:textColor="@color/black_light_font_color"
-                                android:textSize="12sp"
-                                android:textAlignment="viewStart"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/imageView19"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </android.support.constraint.ConstraintLayout>
-
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp">
-
-                            <ImageView
-                                android:id="@+id/imageView20"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginBottom="8dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/specialist_icon" />
-
-                            <TextView
-                                android:id="@+id/specialist"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="8dp"
-                                android:text=""
-                                android:textColor="@color/black_light_font_color"
-                                android:textSize="12sp"
-                                android:textAlignment="viewStart"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="1.0"
-                                app:layout_constraintStart_toEndOf="@+id/imageView20"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </android.support.constraint.ConstraintLayout>
-
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp">
-
-                            <ImageView
-                                android:id="@+id/imageView21"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginBottom="8dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/branch_icon" />
-
-                            <TextView
-                                android:id="@+id/branch_tv"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="8dp"
-                                android:text=""
-                                android:textAlignment="viewStart"
-                                android:textColor="@color/black_light_font_color"
-                                android:textSize="12sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="1.0"
-                                app:layout_constraintStart_toEndOf="@+id/imageView21"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </android.support.constraint.ConstraintLayout>
-
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp">
-
-                            <ImageView
-                                android:id="@+id/imageView22"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginBottom="8dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/price_icon" />
-
-                            <TextView
-                                android:id="@+id/price_tv"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="8dp"
-                                android:text=""
-                                android:textColor="@color/black_light_font_color"
-                                android:textSize="12sp"
-                                android:textAlignment="viewStart"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/imageView22"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </android.support.constraint.ConstraintLayout>
-
-                        <android.support.constraint.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                        </android.support.v7.widget.RecyclerView>
 
                     </LinearLayout>
 

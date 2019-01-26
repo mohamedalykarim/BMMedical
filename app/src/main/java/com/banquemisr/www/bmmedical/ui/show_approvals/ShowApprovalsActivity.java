@@ -52,7 +52,6 @@ public class ShowApprovalsActivity extends AppCompatActivity {
 
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_show_approval);

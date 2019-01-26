@@ -1,5 +1,5 @@
 <resources>
-    <string name="format">%1$tY\%1$tm\%1$td</string>
+    <string name="format">%1$tY/%1$tm/%1$td</string>
 
     <string name="app_name">BM Medical</string>
     <string name="action_login">تسجيل الدخول</string>

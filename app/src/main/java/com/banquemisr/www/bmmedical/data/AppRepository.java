@@ -272,4 +272,12 @@ public class AppRepository {
     }
 
 
+    public LiveData<Approval> getApprovalDetails(String id) {
+        return approvalsDao.getApprovalDetails(id);
+    }
+
+
+    public MutableLiveData<List<String>> getImagesNames(String id) {
+        return networkDataHelper.getImagesNames(id);
+    }
 }

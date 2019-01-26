@@ -22,6 +22,7 @@ public class UserSyncIntentService extends IntentService {
     private static final String ADD_APPROVAL_REQUEST_URIS = "add_approval_request_uris";
     private static final String ADD_APPROVAL_REQUEST_ORACLE = "add_approval_request_oracle";
     private static final String FETCH_APPROVAL_REQUESTS = "get_approval_request";
+    private static final String FETCH_ATTACHED_IMAGES = "get_attached_images";
 
 
 
@@ -62,6 +63,11 @@ public class UserSyncIntentService extends IntentService {
             if(intent.hasExtra(FETCH_APPROVAL_REQUESTS)){
                 String oracle = intent.getStringExtra(FETCH_APPROVAL_REQUESTS);
                 networkDataHelper.fetchApprovalRequests(oracle);
+            }
+        }else if(intent.getAction().equals(FETCH_ATTACHED_IMAGES)){
+            if(intent.hasExtra(FETCH_ATTACHED_IMAGES)){
+                String id = intent.getStringExtra(FETCH_ATTACHED_IMAGES);
+                networkDataHelper.fetchAttachedImages(id);
             }
         }
 

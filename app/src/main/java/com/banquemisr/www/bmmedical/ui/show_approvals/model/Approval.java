@@ -36,6 +36,8 @@ public class Approval implements Parcelable {
         id = in.readString();
         status = in.readString();
         type = in.readString();
+        date = (Date) in.readSerializable();
+
     }
 
     @Ignore
@@ -44,6 +46,7 @@ public class Approval implements Parcelable {
         dest.writeString(id);
         dest.writeString(status);
         dest.writeString(type);
+        dest.writeSerializable(date);
     }
 
     @Ignore

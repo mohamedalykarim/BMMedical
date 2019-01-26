@@ -1,6 +1,5 @@
 package com.banquemisr.www.bmmedical.data;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
@@ -16,14 +15,9 @@ import com.banquemisr.www.bmmedical.data.services.UserSyncIntentService;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
 import com.banquemisr.www.bmmedical.ui.requests.model.MedicalEntity;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
-import com.banquemisr.www.bmmedical.ui.requests.model.Request;
 import com.banquemisr.www.bmmedical.ui.show_approvals.model.Approval;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
-import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +43,7 @@ public class NetworkDataHelper {
     private static final String ADD_APPROVAL_REQUEST_URIS = "add_approval_request_uris";
     private static final String ADD_APPROVAL_REQUEST_ORACLE = "add_approval_request_oracle";
     private static final String FETCH_APPROVAL_REQUESTS = "get_approval_request";
+    private static final String FETCH_ATTACHED_IMAGES = "get_attached_images";
 
     Context mContext;
     private static final Object LOCK = new Object();
@@ -58,6 +53,7 @@ public class NetworkDataHelper {
     MutableLiveData<List<MedicalEntity>> entities;
     MutableLiveData<List<RequestDetails>> requests;
     MutableLiveData<List<Approval>> approvalsRequests;
+    MutableLiveData<List<String>> attachedImagesNames;
 
 
     private NetworkDataHelper(Context context) {
@@ -66,6 +62,7 @@ public class NetworkDataHelper {
         entities = new MutableLiveData<>();
         requests = new MutableLiveData<>();
         approvalsRequests = new MutableLiveData<>();
+        attachedImagesNames = new MutableLiveData<>();
 
     }
 
@@ -311,8 +308,20 @@ public class NetworkDataHelper {
 
                                 // Add the file to storage
                                 StorageReference reference = FirebaseUtils.provideImageStorageReference(oracle).child("approvals").child(id);
-                                StorageReference file = reference.child(oracle + getFileName(uri));
-                                file.putBytes(data);
+                                String fileName = oracle + getFileName(uri);
+                                StorageReference file = reference.child(fileName);
+                                file.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        String imagedID = FirebaseUtils.getAttachedImagesForApprovalReference()
+                                                .child(id)
+                                                .push().getKey();
+
+                                        FirebaseUtils.getAttachedImagesForApprovalReference()
+                                                .child(id)
+                                                .child(imagedID).setValue(fileName);
+                                    }
+                                });
 
                             } catch (IOException e) {
 
@@ -350,5 +359,41 @@ public class NetworkDataHelper {
     }
 
 
+    /**
+     *         Get Attached Images For Approval
+     * */
 
+    public MutableLiveData<List<String>> getImagesNames(String id) {
+        startFetchAttachedImages(id);
+        return attachedImagesNames;
+    }
+
+    private void startFetchAttachedImages(String id) {
+        Intent intentToFetch = new Intent(mContext, UserSyncIntentService.class);
+        intentToFetch.setAction(FETCH_ATTACHED_IMAGES);
+        intentToFetch.putExtra(FETCH_ATTACHED_IMAGES, id);
+        mContext.startService(intentToFetch);
+
+    }
+
+    public void fetchAttachedImages(String id) {
+        FirebaseUtils.getAttachedImagesForApprovalReference()
+                .child(id)
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> images = new ArrayList<>();
+                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                    images.add(childSnapshot.getValue().toString());
+                }
+
+                attachedImagesNames.setValue(images);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

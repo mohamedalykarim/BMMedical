@@ -26,4 +26,7 @@ public interface ApprovalsDao {
 
     @Query("DELETE FROM approval")
     void deleteALL();
+
+    @Query("SELECT * FROM approval WHERE id = :id")
+    LiveData<Approval> getApprovalDetails(String id);
 }

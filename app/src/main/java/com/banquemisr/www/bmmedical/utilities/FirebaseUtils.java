@@ -35,4 +35,12 @@ public class FirebaseUtils {
     public static StorageReference provideImageStorageReference(String oracle){
         return FirebaseStorage.getInstance().getReference().child("images").child(oracle);
     }
+
+    public static DatabaseReference getAttachedImagesForApprovalReference() {
+        return FirebaseDatabase.getInstance().getReference("approvalAttachedImages");
+    }
+
+    public static StorageReference getAttachedImagesForApprovalStorageReference(String oracle) {
+        return FirebaseStorage.getInstance().getReference().child("images").child(oracle).child("approvals");
+    }
 }

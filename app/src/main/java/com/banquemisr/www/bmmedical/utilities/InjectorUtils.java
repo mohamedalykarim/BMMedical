@@ -11,6 +11,8 @@ import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.ui.request_details.RequestDetailsViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.requests.RequestViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
+import com.banquemisr.www.bmmedical.ui.show_approval_details.ApprovalDetailsActivity;
+import com.banquemisr.www.bmmedical.ui.show_approval_details.ApprovalDetailsFactory;
 import com.banquemisr.www.bmmedical.ui.show_approvals.ShowApprovalsVHFactory;
 import com.banquemisr.www.bmmedical.ui.transaction.TransactionDetailsVmFactory;
 
@@ -71,4 +73,8 @@ public class InjectorUtils {
         return BMMedicalDatabase.getsInstance(context);
     }
 
+    public static ApprovalDetailsFactory provideApprovalVMFactory(Context context) {
+        AppRepository appRepository = InjectorUtils.provideRepository(context);
+        return new ApprovalDetailsFactory(appRepository);
+    }
 }

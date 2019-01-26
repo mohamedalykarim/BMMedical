@@ -42,7 +42,7 @@
                 bind:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView16"
+                android:id="@+id/Image2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="50dp"
@@ -68,7 +68,7 @@
                 android:text="@string/sorry_you_have_to_login_before_you_can_see_the_content"
                 bind:layout_constraintEnd_toEndOf="parent"
                 bind:layout_constraintStart_toStartOf="parent"
-                bind:layout_constraintTop_toBottomOf="@+id/imageView16" />
+                bind:layout_constraintTop_toBottomOf="@+id/Image2" />
 
             <Button
                 android:id="@+id/button4"
@@ -87,7 +87,7 @@
                 bind:layout_constraintBottom_toBottomOf="parent"
                 bind:layout_constraintEnd_toEndOf="parent"
                 bind:layout_constraintStart_toStartOf="parent"
-                bind:layout_constraintTop_toBottomOf="@+id/imageView16" />
+                bind:layout_constraintTop_toBottomOf="@+id/Image2" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/approvalRecyclerView"

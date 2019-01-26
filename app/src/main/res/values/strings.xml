@@ -92,6 +92,8 @@
     <string name="add_the_request">Add the Request</string>
     <string name="attach_images">Attach Images</string>
     <string name="add_new_request">Add New Request</string>
+    <string name="choose_images_text">You must choose your attachment image first</string>
+    <string name="attachment_max_4">The Maximum Number of Image is four</string>
 
     <array name="specialization_type">
         <item>All</item>

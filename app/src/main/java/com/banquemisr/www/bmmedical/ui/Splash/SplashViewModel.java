@@ -15,6 +15,7 @@ public class SplashViewModel extends ViewModel {
             appRepository.deleteAllApprovalRequests();
             appRepository.deleteAllRequests();
             appRepository.initializeRequestsDetails(user.getOracle()+"");
+            appRepository.getApprovalsRequests(user.getOracle()+"","");
         });
 
     }

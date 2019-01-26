@@ -18,6 +18,9 @@ public interface ApprovalsDao {
     @Query("SELECT * FROM approval")
     LiveData<List<Approval>> getApprovals();
 
+    @Query("SELECT * FROM approval WHERE type = :type")
+    LiveData<List<Approval>> getApprovalsByType(String type);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void bulkInsert(List<Approval> approvals);
 

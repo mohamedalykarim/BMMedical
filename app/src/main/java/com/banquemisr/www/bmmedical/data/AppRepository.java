@@ -260,9 +260,9 @@ public class AppRepository {
         networkDataHelper.startFetchApprovalRequestsData(oracle);
     }
 
-    public LiveData<List<Approval>> getApprovalsRequests(String oracle){
+    public LiveData<List<Approval>> getApprovalsRequests(String oracle, String type){
         startFetchApprovals(oracle);
-       return approvalsDao.getApprovals();
+       return approvalsDao.getApprovalsByType(type);
     }
 
     public void deleteAllApprovalRequests(){

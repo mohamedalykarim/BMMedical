@@ -92,8 +92,8 @@ public class ShowApprovalsVH extends ViewModel {
      * Handling approvals
      */
 
-    public LiveData<List<Approval>> getApprovals() {
-        return appRepository.getApprovalsRequests(oracle);
+    public LiveData<List<Approval>> getApprovals(String type) {
+        return appRepository.getApprovalsRequests(oracle, type);
     }
 
 }

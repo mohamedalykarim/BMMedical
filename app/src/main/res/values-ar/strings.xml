@@ -122,6 +122,8 @@
     <string name="add_the_request">اضافة الطلب</string>
     <string name="attach_images">اضافة مرفقات</string>
     <string name="add_new_request">اضافة طلب جديد</string>
+    <string name="choose_images_text">يجب اختيار المرفقات اولا</string>
+    <string name="attachment_max_4">الحد الاقصى للمرفقات هو اربعة مرفقات</string>
 
 
     <array name="specialization_type">

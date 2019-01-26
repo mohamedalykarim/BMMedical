@@ -310,18 +310,9 @@ public class NetworkDataHelper {
 
 
                                 // Add the file to storage
-                                StorageReference reference = FirebaseUtils.provideImageStorageReference(oracle);
+                                StorageReference reference = FirebaseUtils.provideImageStorageReference(oracle).child("approvals").child(id);
                                 StorageReference file = reference.child(oracle + getFileName(uri));
-                                file.putBytes(data)
-                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                                            }
-                                        });
-
-
-
+                                file.putBytes(data);
 
                             } catch (IOException e) {
 

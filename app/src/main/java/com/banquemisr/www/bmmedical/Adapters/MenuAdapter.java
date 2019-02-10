@@ -12,6 +12,7 @@ import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.data.model.MenuItem;
 import com.banquemisr.www.bmmedical.ui.approvals_menu.ApprovalsMenuActivity;
 import com.banquemisr.www.bmmedical.ui.Informations.InformationsActivty;
+import com.banquemisr.www.bmmedical.ui.entity_type.EntityTypesActivity;
 import com.banquemisr.www.bmmedical.ui.show_approvals.ShowApprovalsActivity;
 import com.banquemisr.www.bmmedical.ui.requests.RequestsActivity;
 import com.banquemisr.www.bmmedical.databinding.RowMenuItemBinding;
@@ -68,7 +69,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                             break;
 
                         case 1:
-                            intent =  new Intent(context, RequestsActivity.class);
+                            intent =  new Intent(context, EntityTypesActivity.class);
                             break;
 
                         default:

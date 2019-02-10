@@ -7,6 +7,7 @@ import com.banquemisr.www.bmmedical.data.AppRepository;
 import com.banquemisr.www.bmmedical.data.NetworkDataHelper;
 import com.banquemisr.www.bmmedical.data.database.BMMedicalDatabase;
 import com.banquemisr.www.bmmedical.ui.Splash.SplashVMFactory;
+import com.banquemisr.www.bmmedical.ui.entity_type.EntityTypeVmFactory;
 import com.banquemisr.www.bmmedical.ui.login.model.User;
 import com.banquemisr.www.bmmedical.ui.request_details.RequestDetailsViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.requests.RequestViewModelFactory;
@@ -76,5 +77,9 @@ public class InjectorUtils {
     public static ApprovalDetailsFactory provideApprovalVMFactory(Context context) {
         AppRepository appRepository = InjectorUtils.provideRepository(context);
         return new ApprovalDetailsFactory(appRepository);
+    }
+
+    public static EntityTypeVmFactory provideEntityTypeVMFactory() {
+        return new EntityTypeVmFactory();
     }
 }

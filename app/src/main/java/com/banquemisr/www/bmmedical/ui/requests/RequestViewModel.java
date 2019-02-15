@@ -45,6 +45,16 @@ public class RequestViewModel extends ViewModel {
         return medicalEntities;
     }
 
+    public LiveData<PagedList<MedicalEntity>> getFilteredMedicalEntities(LifecycleOwner lifecycleOwner, String region, String entityType, String specialization) {
+        dataSourceFactory = appRepository.getFilteredRandomEntities(region, entityType, specialization);
+        if(null != medicalEntities){
+            medicalEntities.removeObservers(lifecycleOwner);
+        }
+        medicalEntities = new LivePagedListBuilder<>(dataSourceFactory,3)
+                .build();
+        return medicalEntities;
+    }
+
 
     public LiveData<PagedList<MedicalEntity>> getMedicalEntitiesBySearch(String newText, LifecycleOwner lifecycleOwner) {
         dataSourceFactory = appRepository.getEntitiesBySearch(newText);

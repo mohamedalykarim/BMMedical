@@ -34,12 +34,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+            <ImageView
+                android:id="@+id/imageView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintStart_toStartOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:id="@+id/regionContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="466dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical"
                 android:padding="10dp"
+                android:visibility='@{entityTypeVM.region.equals("") ? View.VISIBLE : View.GONE}'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +132,150 @@
 
             </LinearLayout>
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility='@{(!entityTypeVM.region.equals("") &amp;&amp; entityTypeVM.entityType.equals("")) ? View.VISIBLE : View.GONE}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <LinearLayout
+                    android:id="@+id/typeContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/rounded1"
+                        android:onClick="@{()->entityTypeVM.checkHospitals()}"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imageView31"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            bind:srcCompat="@drawable/hospital_icon" />
+
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/hospitals"
+                            android:textColor="@color/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView31" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rounded1"
+                        android:onClick="@{()->entityTypeVM.checkClinics()}"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imageView29"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            bind:srcCompat="@drawable/clinic_icon" />
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/clinics"
+                            android:textColor="@color/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView29" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rounded1"
+                        android:onClick="@{()->entityTypeVM.checkMedicalCenter()}"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imageView30"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            bind:srcCompat="@drawable/medical_center_icon" />
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/medical_center"
+                            android:textColor="@color/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView30" />
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <ListView
+                android:id="@+id/specializationList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility='@{(!entityTypeVM.region.equals("") &amp;&amp; !entityTypeVM.entityType.equals("")) ? View.VISIBLE : View.GONE}'
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ListView>
 
 
         </android.support.constraint.ConstraintLayout>

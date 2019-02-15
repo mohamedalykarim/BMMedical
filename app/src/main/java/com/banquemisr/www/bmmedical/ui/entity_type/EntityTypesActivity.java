@@ -7,27 +7,36 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.banquemisr.www.bmmedical.Adapters.SpecializationAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityEntityTypesBinding;
 import com.banquemisr.www.bmmedical.ui.MainScreen.MainScreenActivity;
+import com.banquemisr.www.bmmedical.ui.entity_type.model.Specialization;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
 import com.banquemisr.www.bmmedical.ui.request_details.model.RequestDetails;
+import com.banquemisr.www.bmmedical.ui.requests.RequestsActivity;
 import com.banquemisr.www.bmmedical.ui.transaction.TransactionDetailsActivity;
 import com.banquemisr.www.bmmedical.utilities.FirebaseUtils;
 import com.banquemisr.www.bmmedical.utilities.InjectorUtils;
 
-public class EntityTypesActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class EntityTypesActivity extends AppCompatActivity implements SpecializationAdapter.OnItemClicked {
     private static final String MY_REQUEST_ID = "my_request_id";
     private static final int LOGIN_REQUEST = 1;
     LoginViewModel loginViewModel;
     ActivityEntityTypesBinding binding;
-    private EntityTypeVM entityViewModel;
+    public static EntityTypeVM entityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +61,19 @@ public class EntityTypesActivity extends AppCompatActivity {
 
         EntityTypeVmFactory entityTypeVmFactory = InjectorUtils.provideEntityTypeVMFactory();
         entityViewModel = ViewModelProviders.of(this, entityTypeVmFactory).get(EntityTypeVM.class);
+        entityViewModel.setValues();
+
         binding.setEntityTypeVM(entityViewModel);
 
+
+        ListView specializationListView = binding.specializationList;
+        List<Specialization> specializationList = new ArrayList<>();
+        specializationList.add(new Specialization("اطفال", R.drawable.cairo_icon));
+        specializationList.add(new Specialization("اطفال", R.drawable.cairo_icon));
+        specializationList.add(new Specialization("اطفال", R.drawable.cairo_icon));
+
+        SpecializationAdapter specializationAdapter = new SpecializationAdapter(this,specializationList, this);
+        specializationListView.setAdapter(specializationAdapter);
     }
 
     public void getOutifNotLogin(){
@@ -131,5 +151,13 @@ public class EntityTypesActivity extends AppCompatActivity {
             loginViewModel.login.setLogged(true);
             loginViewModel.login.setLoginPressedEvent(false);
         }
+    }
+
+
+    @Override
+    public void OnSpecializationItemClicked(String specialization) {
+        entityViewModel.specialization.setValue(specialization);
+        startActivity(new Intent(this, RequestsActivity.class));
+        finish();
     }
 }

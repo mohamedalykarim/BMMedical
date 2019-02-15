@@ -24,6 +24,10 @@ public interface EntityDao {
     @Query("SELECT * FROM entities ORDER BY name ASC")
     DataSource.Factory<Integer,MedicalEntity> getEntities();
 
+    @Query("SELECT * FROM entities WHERE region = :region AND type = :entityType AND specialist = :specialization ORDER BY name ASC")
+    DataSource.Factory<Integer,MedicalEntity> getFilteredEntities(String region, String entityType, String specialization);
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void bulkInsert(List<MedicalEntity> entityList);
 

@@ -13,6 +13,7 @@ public class MedicalEntity {
     String id;
     String name;
     String type;
+    String region;
     String phone;
     String address;
     String price;
@@ -26,10 +27,13 @@ public class MedicalEntity {
     public MedicalEntity() {
     }
 
-    public MedicalEntity(String id, String name, String type, String phone, String address, String price, String doctor, String specialist, String branch, double longitude, double latitude) {
+    public MedicalEntity(@NonNull String id, String name, String type, String region, String phone,
+                         String address, String price, String doctor, String specialist, String branch,
+                         double longitude, double latitude) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.region = region;
         this.phone = phone;
         this.address = address;
         this.price = price;
@@ -50,6 +54,10 @@ public class MedicalEntity {
 
     public String getType() {
         return type;
+    }
+
+    public String getRegion() {
+        return region;
     }
 
     public String getPhone() {
@@ -94,6 +102,10 @@ public class MedicalEntity {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public void setPhone(String phone) {

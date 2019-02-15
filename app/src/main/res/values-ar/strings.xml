@@ -126,6 +126,7 @@
     <string name="attachment_max_4">الحد الاقصى للمرفقات هو اربعة مرفقات</string>
     <string name="cairo_regions">القاهرة الكبرى</string>
     <string name="regions">الاقاليم</string>
+    <string name="medical_center">مركز طبي</string>
 
 
     <array name="specialization_type">

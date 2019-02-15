@@ -93,29 +93,29 @@
                            android:layout_height="match_parent">
 
 
-                           <EditText
-                               android:id="@+id/search_view"
-                               android:layout_width="match_parent"
-                               android:layout_height="match_parent"
-                               android:layout_marginTop="10dp"
-                               android:layout_marginEnd="100dp"
-                               android:layout_marginBottom="10dp"
-                               android:background="@color/black_transparent"
-                               android:text="@={requestViewModel.request.searchText}"
-                               android:textAlignment="viewStart"
-                               android:hint="@string/search_by_name"
-                               android:padding="5dp"
-                               android:paddingStart="30dp"
-                               android:textColor="@color/da"
-                               android:textColorHint="@color/black_transparent_hint"
-                               android:textSize="12sp" />
+                           <!--<EditText-->
+                               <!--android:id="@+id/search_view"-->
+                               <!--android:layout_width="match_parent"-->
+                               <!--android:layout_height="match_parent"-->
+                               <!--android:layout_marginTop="10dp"-->
+                               <!--android:layout_marginEnd="100dp"-->
+                               <!--android:layout_marginBottom="10dp"-->
+                               <!--android:background="@color/black_transparent"-->
+                               <!--android:text="@={requestViewModel.request.searchText}"-->
+                               <!--android:textAlignment="viewStart"-->
+                               <!--android:hint="@string/search_by_name"-->
+                               <!--android:padding="5dp"-->
+                               <!--android:paddingStart="30dp"-->
+                               <!--android:textColor="@color/da"-->
+                               <!--android:textColorHint="@color/black_transparent_hint"-->
+                               <!--android:textSize="12sp" />-->
 
-                           <ImageView
-                               android:layout_width="20dp"
-                               android:layout_height="20dp"
-                               android:layout_gravity="center_vertical|start"
-                               android:layout_marginStart="5dp"
-                               android:src="@android:drawable/ic_search_category_default" />
+                           <!--<ImageView-->
+                               <!--android:layout_width="20dp"-->
+                               <!--android:layout_height="20dp"-->
+                               <!--android:layout_gravity="center_vertical|start"-->
+                               <!--android:layout_marginStart="5dp"-->
+                               <!--android:src="@android:drawable/ic_search_category_default" />-->
 
                        </FrameLayout>
 

@@ -26,6 +26,9 @@ import com.banquemisr.www.bmmedical.Adapters.EntityAdapter;
 import com.banquemisr.www.bmmedical.R;
 import com.banquemisr.www.bmmedical.databinding.ActivityRequestsBinding;
 import com.banquemisr.www.bmmedical.ui.MainScreen.MainScreenActivity;
+import com.banquemisr.www.bmmedical.ui.entity_type.EntityTypeVM;
+import com.banquemisr.www.bmmedical.ui.entity_type.EntityTypeVmFactory;
+import com.banquemisr.www.bmmedical.ui.entity_type.EntityTypesActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginActivity;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModel;
 import com.banquemisr.www.bmmedical.ui.login.LoginViewModelFactory;
@@ -48,6 +51,7 @@ public class RequestsActivity extends AppCompatActivity {
     LinearLayoutManager entityLayoutManager;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
+    private EntityTypeVM entityViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,7 @@ public class RequestsActivity extends AppCompatActivity {
         navigationView = binding.navView;
 
         Toolbar toolbar = binding.toolbar;
-        toolbar.setTitle("");
+        toolbar.setTitle(R.string.filter);
         toolbar.setTitleTextColor(getResources().getColor(R.color.da));
         setSupportActionBar(toolbar);
 
@@ -100,22 +104,39 @@ public class RequestsActivity extends AppCompatActivity {
 
         getOutifNotLogin();
         getUserDetails();
-        startListeningtoSearch();
-        startListeningToMedicalEntities();
+
+
+        /**
+         *
+         */
+        entityViewModel = EntityTypesActivity.entityViewModel;
 
 
 
 
-        requestViewModel.filter.observe(this, filter -> {
-            if(null != filter){
-                requestViewModel.getMedicalEntitiesByFilter(FilterUtils.initQuery(filter), filter).observe(this,pagedList -> {
-                    entityRecyclerAdapter = null;
-                    entityRecyclerAdapter = new EntityAdapter(this);
-                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
-                    entityRecyclerAdapter.submitList(pagedList);
-                });
-            }
-        });
+
+//        startListeningtoSearch();
+
+        startListeningToMedicalEntities(
+                entityViewModel.region.getValue(),
+                entityViewModel.entityType.getValue(),
+                entityViewModel.specialization.getValue()
+        );
+
+
+
+
+
+//        requestViewModel.filter.observe(this, filter -> {
+//            if(null != filter){
+//                requestViewModel.getMedicalEntitiesByFilter(FilterUtils.initQuery(filter), filter).observe(this,pagedList -> {
+//                    entityRecyclerAdapter = null;
+//                    entityRecyclerAdapter = new EntityAdapter(this);
+//                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+//                    entityRecyclerAdapter.submitList(pagedList);
+//                });
+//            }
+//        });
 
 
     }
@@ -183,40 +204,44 @@ public class RequestsActivity extends AppCompatActivity {
         });
     }
 
-    void startListeningToMedicalEntities(){
-        requestViewModel.getMedicalEntities(this).observe(this,pagedListEntity->{
+    void startListeningToMedicalEntities(String region, String entityType, String specialization){
+        requestViewModel.getFilteredMedicalEntities(this, region, entityType, specialization).observe(this,pagedListEntity->{
             entityRecyclerAdapter.submitList(pagedListEntity);
         });
     }
 
-    void startListeningtoSearch(){
-        requestViewModel.request.getSearchText().observe(this, searchText->{
-            if(searchText.equals("")){
-                requestViewModel.getMedicalEntities(this).observe(this,pagedListEntity->{
-                    entityRecyclerAdapter = null;
-                    entityRecyclerAdapter = new EntityAdapter(this);
-                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
-                    entityRecyclerAdapter.submitList(pagedListEntity);
-                });
-            }else{
-                requestViewModel.getMedicalEntitiesBySearch(searchText,this).observe(this,pagedListEntity->{
-                    entityRecyclerAdapter = null;
-                    entityRecyclerAdapter = new EntityAdapter(this);
-                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
-                    entityRecyclerAdapter.submitList(pagedListEntity);
-                });
-            }
-        });
-    }
+//    void startListeningtoSearch(){
+//        requestViewModel.request.getSearchText().observe(this, searchText->{
+//            if(searchText.equals("")){
+//                requestViewModel.getMedicalEntities(this).observe(this,pagedListEntity->{
+//                    entityRecyclerAdapter = null;
+//                    entityRecyclerAdapter = new EntityAdapter(this);
+//                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+//                    startListeningToMedicalEntities(
+//                            entityViewModel.region.getValue(),
+//                            entityViewModel.entityType.getValue(),
+//                            entityViewModel.specialization.getValue()
+//                    );
+//                });
+//            }else{
+//                requestViewModel.getMedicalEntitiesBySearch(searchText,this).observe(this,pagedListEntity->{
+//                    entityRecyclerAdapter = null;
+//                    entityRecyclerAdapter = new EntityAdapter(this);
+//                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+//                    entityRecyclerAdapter.submitList(pagedListEntity);
+//                });
+//            }
+//        });
+//    }
 
 
-
-    void startFilterDialog(){
-        FilterDialog filterDialog = new FilterDialog(this,
-                android.R.style.Theme_Light_NoTitleBar_Fullscreen,
-                requestViewModel);
-        filterDialog.show();
-    }
+//
+//    void startFilterDialog(){
+//        FilterDialog filterDialog = new FilterDialog(this,
+//                android.R.style.Theme_Light_NoTitleBar_Fullscreen,
+//                requestViewModel);
+//        filterDialog.show();
+//    }
 
 
 
@@ -233,26 +258,26 @@ public class RequestsActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.request_menu,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.request_menu_filter:
-                startFilterDialog();
-                break;
-
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater menuInflater = getMenuInflater();
+//        menuInflater.inflate(R.menu.request_menu,menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        switch (id){
+//            case R.id.request_menu_filter:
+//                startFilterDialog();
+//                break;
+//
+//
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
 

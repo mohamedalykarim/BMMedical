@@ -96,6 +96,7 @@
     <string name="attachment_max_4">The Maximum Number of Image is four</string>
     <string name="cairo_regions">Cairo Regions</string>
     <string name="regions">Regions</string>
+    <string name="medical_center">Medical Center</string>
 
     <array name="specialization_type">
         <item>All</item>

@@ -150,6 +150,11 @@ public class AppRepository {
         return entityDao.getEntities();
     }
 
+    public DataSource.Factory<Integer, MedicalEntity> getFilteredRandomEntities(String region, String entityType, String specialization) {
+        initializeEntitiesData();
+        return entityDao.getFilteredEntities(region, entityType, specialization);
+    }
+
     public DataSource.Factory<Integer, MedicalEntity> getEntitiesBySearch(String searchText) {
         return entityDao.getEntitiesBySearch("%"+searchText+"%");
     }

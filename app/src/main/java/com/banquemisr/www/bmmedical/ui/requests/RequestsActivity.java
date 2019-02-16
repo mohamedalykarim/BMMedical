@@ -63,7 +63,6 @@ public class RequestsActivity extends AppCompatActivity {
         navigationView = binding.navView;
 
         Toolbar toolbar = binding.toolbar;
-        toolbar.setTitle(R.string.filter);
         toolbar.setTitleTextColor(getResources().getColor(R.color.da));
         setSupportActionBar(toolbar);
 
@@ -115,13 +114,14 @@ public class RequestsActivity extends AppCompatActivity {
 
 
 
-//        startListeningtoSearch();
+        startListeningtoSearch();
 
         startListeningToMedicalEntities(
                 entityViewModel.region.getValue(),
                 entityViewModel.entityType.getValue(),
                 entityViewModel.specialization.getValue()
         );
+
 
 
 
@@ -210,29 +210,29 @@ public class RequestsActivity extends AppCompatActivity {
         });
     }
 
-//    void startListeningtoSearch(){
-//        requestViewModel.request.getSearchText().observe(this, searchText->{
-//            if(searchText.equals("")){
-//                requestViewModel.getMedicalEntities(this).observe(this,pagedListEntity->{
-//                    entityRecyclerAdapter = null;
-//                    entityRecyclerAdapter = new EntityAdapter(this);
-//                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
-//                    startListeningToMedicalEntities(
-//                            entityViewModel.region.getValue(),
-//                            entityViewModel.entityType.getValue(),
-//                            entityViewModel.specialization.getValue()
-//                    );
-//                });
-//            }else{
-//                requestViewModel.getMedicalEntitiesBySearch(searchText,this).observe(this,pagedListEntity->{
-//                    entityRecyclerAdapter = null;
-//                    entityRecyclerAdapter = new EntityAdapter(this);
-//                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
-//                    entityRecyclerAdapter.submitList(pagedListEntity);
-//                });
-//            }
-//        });
-//    }
+    void startListeningtoSearch(){
+        requestViewModel.request.getSearchText().observe(this, searchText->{
+            if(searchText.equals("")){
+                requestViewModel.getMedicalEntities(this).observe(this,pagedListEntity->{
+                    entityRecyclerAdapter = null;
+                    entityRecyclerAdapter = new EntityAdapter(this);
+                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+                    startListeningToMedicalEntities(
+                            entityViewModel.region.getValue(),
+                            entityViewModel.entityType.getValue(),
+                            entityViewModel.specialization.getValue()
+                    );
+                });
+            }else{
+                requestViewModel.getMedicalEntitiesBySearch(searchText,this).observe(this,pagedListEntity->{
+                    entityRecyclerAdapter = null;
+                    entityRecyclerAdapter = new EntityAdapter(this);
+                    entityRecyclerView.setAdapter(entityRecyclerAdapter);
+                    entityRecyclerAdapter.submitList(pagedListEntity);
+                });
+            }
+        });
+    }
 
 
 //

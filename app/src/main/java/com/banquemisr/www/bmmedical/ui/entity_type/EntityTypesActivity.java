@@ -68,9 +68,9 @@ public class EntityTypesActivity extends AppCompatActivity implements Specializa
 
         ListView specializationListView = binding.specializationList;
         List<Specialization> specializationList = new ArrayList<>();
-        specializationList.add(new Specialization("اطفال", R.drawable.cairo_icon));
-        specializationList.add(new Specialization("اطفال", R.drawable.cairo_icon));
-        specializationList.add(new Specialization("اطفال", R.drawable.cairo_icon));
+        specializationList.add(new Specialization("اطفال", R.drawable.baby_icon));
+        specializationList.add(new Specialization("عظام", R.drawable.bones_icon));
+        specializationList.add(new Specialization( "باطنة", R.drawable.stomach_icon));
 
         SpecializationAdapter specializationAdapter = new SpecializationAdapter(this,specializationList, this);
         specializationListView.setAdapter(specializationAdapter);

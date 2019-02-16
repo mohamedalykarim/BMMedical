@@ -62,14 +62,14 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded1"
+                    android:background="@drawable/rounded2"
                     android:onClick="@{()->entityTypeVM.checkCairoRegions()}"
                     android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imageView27"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
@@ -87,7 +87,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:text="@string/cairo_regions"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/da"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -98,14 +98,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded1"
+                    android:background="@drawable/rounded2"
                     android:onClick="@{()->entityTypeVM.checkOtherRegions()}"
                     android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imageView28"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
@@ -123,7 +123,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:text="@string/regions"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/da"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +134,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:visibility='@{(!entityTypeVM.region.equals("") &amp;&amp; entityTypeVM.entityType.equals("")) ? View.VISIBLE : View.GONE}'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -157,14 +157,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/rounded1"
+                        android:background="@drawable/rounded2"
                         android:onClick="@{()->entityTypeVM.checkHospitals()}"
                         android:padding="10dp">
 
                         <ImageView
                             android:id="@+id/imageView31"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
@@ -182,7 +182,7 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="8dp"
                             android:text="@string/hospitals"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/da"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -193,14 +193,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/rounded1"
+                        android:background="@drawable/rounded2"
                         android:onClick="@{()->entityTypeVM.checkClinics()}"
                         android:padding="10dp">
 
                         <ImageView
                             android:id="@+id/imageView29"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
@@ -218,7 +218,7 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="8dp"
                             android:text="@string/clinics"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/da"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -229,14 +229,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/rounded1"
+                        android:background="@drawable/rounded2"
                         android:onClick="@{()->entityTypeVM.checkMedicalCenter()}"
                         android:padding="10dp">
 
                         <ImageView
                             android:id="@+id/imageView30"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
@@ -254,7 +254,7 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="8dp"
                             android:text="@string/medical_center"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/da"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
